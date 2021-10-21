@@ -16,7 +16,6 @@ public class Unit {
             ods.setPassword("password");
             con = ods.getConnection();
             con.setAutoCommit(false);
-          
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

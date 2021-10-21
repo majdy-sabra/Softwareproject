@@ -85,47 +85,66 @@ Khalid : with the skills I’ve gained over previous semesters, I’m very quali
 
 
 
+<br/><br>
+<br/><br>
+<br/><br>
 
-<a href="https://twitter.com/dhanani_brijesh">
+
+
+
+## Development Team members estimates.
+Only members of the development team participated in the creation of the estimates as the job was chosen for each team based on the skill of the person
+<br/><br>
+<br/><br>
+## A forecast of how many story points we will finish in the first sprint:
+In this sprint, we have forecasted to complete 11 user stories.
+<br/><br>
+<br/><br>
+## The rationale for our forecast:
+Since we are 6 members in a single group, and we have divided ourselves into smaller groups for pair programming aims, so achieving our goals will be easier and faster since each group is skillful in a specific field more than others, and since required work is distributed between the three pair groups who are frontend group which will work on everything related with the frontend programming and designing, database group which will create, design and program everything related with the database details, and finally backend programmers who are responsible to manipulate all expected actions with the user interactive buttons, and interfaces. So having all these great and skillfull groups makes us sure that we are going to finish everything as required and at the appropriate time.
+<br/><br>
+<br/><br>
+## Our Daily Scrums.
+<br/><br>
+we have a multiple Daily Scrums all of them documented in trello trello link [Our product backlog on Trello (Link)](https://trello.com/invite/b/Jyzsu5D2/96d743d7eab954ef17ee74219db5b602/software-project-workspace)
+<br/><br>
+<img src = "https://64.media.tumblr.com/b0be5d42e0ca9868baa02fc4542ef6d3/bb876f6a545f9f14-fa/s500x750/540efe9c15828fa853f6f99c19e4379a03f05492.png">
+<br/><br>
+<br/><br>
+
+## paired or mobbed on Our code : 
+<br/><br>
+<br/><br>
+We have documented all our pair programming efforts and meetings, and our team meetings in general in our trello board, you can check them in trello from the following link:<br/><br>
+[Our product backlog on Trello (Link)](https://trello.com/invite/b/Jyzsu5D2/96d743d7eab954ef17ee74219db5b602/software-project-workspace)
+<br/><br>
+
+
+And our conversations on slack show our pair programming and team meetings, you can check them by following this link:<br/><br>
+[Our chat on Slack (Link)](https://trello.com/invite/b/Jyzsu5D2/96d743d7eab954ef17ee74219db5b602/software-project-workspace)
+<br/><br>
+<img src ="https://64.media.tumblr.com/421f0873429d6bedc2ac3139dce53713/bd5e1b51a686579a-5b/s2048x3072/d8a0d0208caaddafdee35e4ea64c2a4e5584759f.png">
+<br/><br>
+<br/><br>
+
+# Tools :
+<img src ="https://64.media.tumblr.com/0dd4e5ff0af699b7afc56b2def9ec4f4/d3fc414ca382a3b8-b3/s640x960/73d617e9f4b8b92eebf53436c4f7c58181349979.png">
+<br/><br>
+<br/><br>
+<br/><br>
+<a href="https://twitter.com">
   <img align="left" alt="Brijesh Dhanani | Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />
 </a>
-<a href="https://www.linkedin.com/in/brijesh-dhanani-8a2061141">
+<a href="https://www.linkedin.com">
   <img align="left" alt="Brijesh Dhanani" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />
 </a>
-<a href="https://www.facebook.com/people/Brijesh-Dhanani/100010798357963">
+<a href="https://www.facebook.com">
   <img align="left" alt="Brijesh Dhanani" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/facebook.svg" />
 </a>
-<a href="https://www.instagram.com/singer_brijesh_dhanani">
+<a href="https://www.instagram.com">
   <img align="left" alt="Brijesh Dhanani" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/instagram.svg" />
 </a>
 
 <br />
 <br />
 
-  <img align="right" alt="GIF" src="https://media.giphy.com/media/836HiJc7pgzy8iNXCn/giphy.gif" />
-  
-### 👨‍💻 Languages and Tools
-
-<br />
-
-[![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat&logo=javascript&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=html5&logoColor=white&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat&logo=css3&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![Bootstrap](https://img.shields.io/badge/-Bootstrap-563D7C?style=flat&logo=bootstrap&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-
-[![React](https://img.shields.io/badge/-React-black?style=flat&logo=react&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![Electron](https://img.shields.io/badge/-Electron-gray?style=flat&logo=electron&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![Heroku](https://img.shields.io/badge/-Heroku-gray?style=flat&logo=heroku&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![JQuery](https://img.shields.io/badge/-JQuery-blue?style=flat&logo=jquery&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-
-[![Nodejs](https://img.shields.io/badge/-Nodejs-green?style=flat&logo=Node.js&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![Docker](https://img.shields.io/badge/-Docker-black?style=flat&logo=docker&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![WordPress](https://img.shields.io/badge/-WordPress-blue?style=flat&logo=wordpress&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![JSON](https://img.shields.io/badge/-json-02569B?style=flat&logo=json&link=https://github.com/BRdhanani)](https://github.com/BRdhanani)
-
-[![MySQL](https://img.shields.io/badge/-MySQL-black?style=flat&logo=mysql&link=https://github.com/BRdhanani)](https://github.com/BRdhanani)
-[![Git](https://img.shields.io/badge/-Git-black?style=flat&logo=git&link=https://github.com/BRdhanani)](https://github.com/BRdhanani) 
-[![Bitbucket](https://img.shields.io/badge/-Bitbucket-blue?style=flat&logo=bitbucket&link=https://github.com/BRdhanani)](https://github.com/BRdhanani)
-[![MongoDB](https://img.shields.io/badge/-MongoDB-FCA121?style=flat&logo=mongodb&link=https://github.com/BRdhanani)](https://gitlab.com/BRdhanani) 
-
-⭐️ From [@BRdhanani](https://github.com/BRdhanani)

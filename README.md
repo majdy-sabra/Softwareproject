@@ -55,7 +55,7 @@ Happygrades will be optimized in the future to involve features that enable stud
 
  
 
-## Our product backlog
+## Our initial product backlog
 [Our product backlog on Trello (Link)](https://trello.com/invite/b/Jyzsu5D2/96d743d7eab954ef17ee74219db5b602/software-project-workspace)
 
 * Our rationale for building the backlog:
@@ -112,7 +112,7 @@ we have a multiple Daily Scrums all of them documented in trello trello link [Ou
 <br/><br>
 <br/><br>
 
-## paired or mobbed on Our code : 
+## Evidences of paired or mobbed on Our code: 
 <br/><br>
 <br/><br>
 We have documented all our pair programming efforts and meetings, and our team meetings in general in our trello board, you can check them in trello from the following link:<br/><br>

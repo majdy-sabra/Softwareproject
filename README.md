@@ -121,7 +121,8 @@ We have documented all our pair programming efforts and meetings, and our team m
 
 
 And our conversations on slack show our pair programming and team meetings, you can check them by following this link:<br/><br>
-[Our chat on Slack (Link)](https://trello.com/invite/b/Jyzsu5D2/96d743d7eab954ef17ee74219db5b602/software-project-workspace)
+[Our chat on Slack (Link)](https://join.slack.com/t/softwareproje-2s56295/shared_invite/zt-wz2u945c-vnY34qzfEfR9jfp9_DkO5Q)
+Chanel ID = C02G1KMAT5M
 <br/><br>
 <img src ="https://64.media.tumblr.com/421f0873429d6bedc2ac3139dce53713/bd5e1b51a686579a-5b/s2048x3072/d8a0d0208caaddafdee35e4ea64c2a4e5584759f.png">
 <br/><br>

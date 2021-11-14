@@ -71,7 +71,7 @@ Our rationale of ordering the user stories in the documented order in Trello was
 
 ## Team Relative size Estimating activity
 * front End <br/><br>
-majdy : On the other hand, I chose to work on the front-end. I’ve built similar Java based projects previously, thus, I have a quite good background in designing front ends.
+majdy : On the other hand, I chose to work on the front-end. I’ve built similar Java based projects previously. Thus, I have a quite good background in designing front ends.
 <br/><br>
 Israa : I chose to work on the frontend due to having the required skills and knowing the details of colors’ theories. 
 <br/><br>

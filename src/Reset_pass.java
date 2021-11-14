@@ -5,23 +5,27 @@
  */
 
 
+import database.Students;
+import database.Teachers;
 import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.List;
+/*import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;*/
 import javax.swing.ImageIcon;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
-import Tables.*;
+
 
 
 public class Reset_pass extends javax.swing.JFrame {
+
     boolean allow = false;
- 
     public Reset_pass(){
          initComponents();
     }
@@ -131,48 +135,25 @@ public class Reset_pass extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        try {
-            // TODO add your handling code here:
-            this.dispose();
-            switch ( LogInInterface.role ) {
-                case "stu":
-                    new home_for_stu().setVisible(true);
-                    break;
-                case "Prof":
-                    new home2_for_prof().setVisible(true);
-                    break;
-                case "TA":
-                    new home2_for_techer().setVisible(true);
-                    break;
-                default:
-                    new home2_for_techer().setVisible(true);
-                    break;
-            }//back to home page
-        } catch (SQLException ex) {
-            Logger.getLogger(Reset_pass.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_exitActionPerformed
 
     private void pass_reMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pass_reMouseEntered
         // TODO add your handling code here:
        // System.out.print(Password_new);
         if(pass_1.getText().equals(pass_2.getText()) && !pass_1.getText().isEmpty() && 
-                !pass_2.getText().isEmpty() &&pass_1.getText().length()>=6&&pass_2.getText().length()>=6 && (pass_1.getText().split(" ").length == 1)){
-             
+                !pass_2.getText().isEmpty() &&pass_1.getText().length()>=6&&pass_2.getText().length()>=6){
         this.Pass_1_checker.setVisible(true);
         this.Pass_2_checker.setVisible(true);
         this.Pass_2_checker.setIcon(new ImageIcon ("src\\resetpass\\true.png"));
         this.Pass_1_checker.setIcon(new ImageIcon ("src\\resetpass\\true.png"));
-        allow = true;
         }
         else{
-            allow = false;
         this.Pass_1_checker.setVisible(true);
         this.Pass_2_checker.setVisible(true);
         this.Pass_2_checker.setIcon(new ImageIcon ("src\\resetpass\\fal.png"));
-         if(pass_1.getText().length()>=6 && (pass_1.getText().split(" ").length == 1)){
+         if(pass_1.getText().length()>=6){
          this.Pass_1_checker.setIcon(new ImageIcon ("src\\resetpass\\true.png"));}
          else{
          this.Pass_1_checker.setIcon(new ImageIcon ("src\\resetpass\\fal.png"));
@@ -187,6 +168,7 @@ public class Reset_pass extends javax.swing.JFrame {
     
     private void pass_reMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pass_reMouseExited
         // TODO add your handling code here:
+        
         this.Pass_1_checker.setVisible(false);
         this.Pass_2_checker.setVisible(false);
     }//GEN-LAST:event_pass_reMouseExited
@@ -194,47 +176,28 @@ public class Reset_pass extends javax.swing.JFrame {
     private void pass_reMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pass_reMouseClicked
         // TODO add your handling code here:
         //~J 
-        if(allow){//if entered password is approved
-            try {
-                if(LogInInterface.role.equals("stu")){
-                    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Software_ProjectPU");
-                    EntityManager em = emf.createEntityManager();
-                    em.getTransaction().begin();
-                    Students s = em.find(Students.class, BigDecimal.valueOf(LogInInterface.id));
-                    s.setStudentpassword(pass_1.getText());
-                    em.getTransaction().commit();
-                    em.close();
-                    
-                }//change password for student
-                else{
-                    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Software_ProjectPU");
-                    EntityManager em = emf.createEntityManager();
-                    em.getTransaction().begin();
-                    Teachers t = em.find(Teachers.class, BigDecimal.valueOf(LogInInterface.id));
-                    t.setTeacherpassword(pass_1.getText());
-                    em.getTransaction().commit();
-                    em.close();
-                }//change password for teachers(p&t)
-                this.dispose();
-                // StudentDetailsInterface a = new StudentDetailsInterface();
-                //a.setVisible(true);
-                switch ( LogInInterface.role ) {
-                    case "stu":
-                        new home_for_stu().setVisible(true);
-                        break;
-                    case "Prof":
-                        new home2_for_prof().setVisible(true);
-                        break;
-                    case "TA":
-                        new home2_for_techer().setVisible(true);
-                        break;
-                    default:
-                        new home2_for_techer().setVisible(true);
-                        break; 
-                }//back to home page
-            } catch (SQLException ex) {
-                Logger.getLogger(Reset_pass.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if(allow){ //if entered password is approved
+            if (LogInInterface.role.equals("stu")) {
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("Software_ProjectPU");
+                EntityManager em = emf.createEntityManager();
+                em.getTransaction().begin();
+                Students s = em.find(Students.class, BigDecimal.valueOf(LogInInterface.id));
+                s.setStudentpassword(pass_1.getText().trim());
+                em.getTransaction().commit();
+                em.close();
+            } //change password for student
+            else {
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("Software_ProjectPU");
+                EntityManager em = emf.createEntityManager();
+                em.getTransaction().begin();
+                Teachers t = em.find(Teachers.class, BigDecimal.valueOf(LogInInterface.id));
+                t.setTeacherpassword(pass_1.getText().trim());
+                em.getTransaction().commit();
+                em.close();
+            } //change password for teachers(p&t)
+            this.dispose();
+            // StudentDetailsInterface a = new StudentDetailsInterface();
+            //a.setVisible(true);
         }
         else{
                     JOptionPane.showMessageDialog(null,"Task Failed!\n*Your new password must be at least 6 characters\n*Both fields must match\n*No spaces allowed\nTry Again!","Information",JOptionPane.INFORMATION_MESSAGE);
@@ -244,7 +207,6 @@ public class Reset_pass extends javax.swing.JFrame {
         
         
         //~J
-        
     }//GEN-LAST:event_pass_reMouseClicked
 
 

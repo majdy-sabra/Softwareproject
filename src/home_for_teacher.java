@@ -11,12 +11,14 @@
 
 
 import database.Courses;
+import database.Department;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -30,37 +32,36 @@ import javax.swing.border.Border;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-public class home_for_stu extends javax.swing.JFrame{
+import javax.persistence.EntityManagerFactory;
+
+public class home_for_teacher extends javax.swing.JFrame{
 
    JLabel arr1[];//for Title 
    JLabel arr2[];// for profname and Asses
    JLabel arr3[];// for CourseId
    JLabel arr4[];// for Photo courses
-   JLabel arr5[];// for Photo courses title
-   JLabel arr6[];// for chating Icon's
+   JLabel arr5[];// for courses title
+   //JLabel arr6[];// for chating Icon's
 
    int len;
    static StringBuffer Database = new  StringBuffer("");
    String couse_name="";
+    ResultSet rs;//Contains all courses of teacher -used once- ~J
+    List<Courses> c = new ArrayList<Courses>();//Contains all courses -for any manipulation use this- ~J
     /**
      * Creates new form home
      */
-   
-   static int count = 0;
-   int id;
-   public home_for_stu() throws SQLException{
-       
-        int length;
-        this.id=LogInInterface.id;
+    static int count = 0;
+    
+    public home_for_teacher() {
+        this(0);//Call other constructor ~J
+    }
+    public home_for_teacher(int lenth) {
+        //~J 
         
-              // Mayar start
-              // count for courses
-              //Connection con = new Unit().connectOracle();
-              //Statement s = con.createStatement();
+        try {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
             String user,url,Password;
             url="jdbc:oracle:thin:@LAPTOP-1270LE9S:1521:XE";
@@ -68,129 +69,38 @@ public class home_for_stu extends javax.swing.JFrame{
             Password="scranton";
             Connection con = DriverManager.getConnection(url,user,Password);
             con.setAutoCommit(false);
-              String count = "select  count(distinct courses.courseno)\n" +
-                           "from courses,sections,students_sections,students\n" +
-                           "where  students_sections.STUDENTID = "+id+"and students_sections.sectionno= sections.sectionno and " +
-                          "sections.courseno=courses.courseno";
-              Statement smt = con.createStatement(); 
-              ResultSet rs = smt.executeQuery(count); 
-               rs.next();
-               length = rs.getInt(1);
-              // con.close();
-               // End
-               
-               int lenth = length;
-               len = length;
-               arr1 = new JLabel[lenth];                   
-        arr2 = new JLabel[lenth];
-        arr3 = new JLabel[lenth];
-        arr4 = new JLabel[lenth];
-        arr5 = new JLabel[lenth];
-        arr6 = new JLabel[lenth];
-         for(int i = 0 ; i< lenth ; i++){
-         arr1[i] = new JLabel();
-         arr2[i] = new JLabel();
-         arr3[i] = new JLabel();
-         arr4[i] = new JLabel();
-         arr6[i] = new JLabel("",JLabel.CENTER);
-         arr5[i] = new JLabel("",JLabel.CENTER);
-         
+            String sql = "select *\n" +
+                    "from courses\n" +
+                    "where courses.courseno in (select sections.courseno from sections where sections.sectionno in (select sectionno from teachers_sections where teacherid =" +LogInInterface.id+ "))";
+            Statement smt = con.createStatement();
+            rs = smt.executeQuery(sql);
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("Software_ProjectPU");
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            while(rs.next()) {
+                c.add(new Courses(rs.getBigDecimal("courseno"), rs.getString("coursename"), rs.getString("outlineplan"), rs.getString("image"), rs.getString("message"), null, em.find(Department.class, rs.getBigDecimal("depno"))));
+                
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(home_for_prof.class.getName()).log(Level.SEVERE, null, ex);
         }
-         //Iwill add all the action manual 
-        // Please DON'T CHANGE ANY THING IN THIS CODE ( by : majdy )
-        // Addin a n lenth TIlite Action ,Exit and click and Enter 
-        for (int i = 0 ; i < lenth ; i++){
-          arr1[i].addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseFunclick(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                myActionMouseFunexit(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                myActionMouseFunenter(evt);
-            }
-        });
-          arr6[i].addMouseListener(new java.awt.event.MouseAdapter(){
-           public void mouseEntered(java.awt.event.MouseEvent evt) {
-                myActionMouseEnterchat(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                 myActionMouseExitchat(evt);
-            }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseClickChat(evt);
-            }
-        });
-           arr1[i].addMouseListener(new java.awt.event.MouseAdapter(){
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseClicktoOpenCourseINFO(evt);
-            }
-        });
-          
-        }
-        initComponents();
-        fun (lenth);
-        this.jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-        for5_courses.setVisible(false);
-        for4_courses.setVisible(false);
-        for6_courses.setVisible(false);
-        for7_courses.setVisible(false);
         
-        
-        if(lenth==4){for4_courses.setVisible(true);
-        for5_courses.setVisible(false);
-       
-        for6_courses.setVisible(false);
-        for7_courses.setVisible(false);
-        }
-         if(lenth==5){for5_courses.setVisible(true);
-          
-        for4_courses.setVisible(false);
-        for6_courses.setVisible(false);
-        for7_courses.setVisible(false);
-         }
-          if(lenth==6){for6_courses.setVisible(true);
-          for5_courses.setVisible(false);
-        for4_courses.setVisible(false);
-        
-        for7_courses.setVisible(false);}
-           if(lenth==7){for7_courses.setVisible(true);
-           for5_courses.setVisible(false);
-        for4_courses.setVisible(false);
-        for6_courses.setVisible(false);
-        
-        
-        //After Getting the name from database
-        String name = "'Username Here'";
-        jLabel3.setText("<html>Your Personal Page <br/>Welcome <html>"+LogInInterface.name);
-       
-    }
-           user_name.setText(LogInInterface.name);
-           //constractor
-            scaleimage__logo("src\\photo\\user_.png",user_photo);
-            scaleimage__logo("src\\photo\\prop_rel.png",properties);
-            scaleimage__logo("src\\photo\\botton\\cross.png",exit);
-            scaleimage__logo("src\\photo\\botton\\min_rel.png",min_max);
-            Setting_panel.setVisible(false);
-   }
-   /*
-    public home_for_stu(int lenth) {
+        lenth = c.size();// ~J Find all courses for this teacher and store them in resultset and list to use later 
         len = lenth;
         arr1 = new JLabel[lenth];                   
         arr2 = new JLabel[lenth];
         arr3 = new JLabel[lenth];
         arr4 = new JLabel[lenth];
         arr5 = new JLabel[lenth];
-        arr6 = new JLabel[lenth];
+        //arr6 = new JLabel[lenth];
          for(int i = 0 ; i< lenth ; i++){
          arr1[i] = new JLabel();
          arr2[i] = new JLabel();
          arr3[i] = new JLabel();
          arr4[i] = new JLabel();
-         arr6[i] = new JLabel("",JLabel.CENTER);
+         //arr6[i] = new JLabel("",JLabel.CENTER);
          arr5[i] = new JLabel("",JLabel.CENTER);
-         
         }
         
         //Iwill add all the action manual 
@@ -208,6 +118,7 @@ public class home_for_stu extends javax.swing.JFrame{
                 myActionMouseFunenter(evt);
             }
         });
+          /*
           arr6[i].addMouseListener(new java.awt.event.MouseAdapter(){
            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 myActionMouseEnterchat(evt);
@@ -218,13 +129,7 @@ public class home_for_stu extends javax.swing.JFrame{
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myActionMouseClickChat(evt);
             }
-        });
-           arr1[i].addMouseListener(new java.awt.event.MouseAdapter(){
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseClicktoOpenCourseINFO(evt);
-            }
-        });
-          
+        });*/
         }
         
         
@@ -260,14 +165,11 @@ public class home_for_stu extends javax.swing.JFrame{
            for5_courses.setVisible(false);
         for4_courses.setVisible(false);
         for6_courses.setVisible(false);
-        
-        
-        //After Getting the name from database
-        String name = "'Username Here'";
-        jLabel3.setText("<html>Your Personal Page <br/>Welcome <html>"+LogInInterface.name);
-       
     }
-           
+           //After Getting the name from database
+        jLabel3.setText("<html>Your Personal Page <br/>Welcome <html>" + LogInInterface.name);
+        user_name.setText(""+LogInInterface.name);//~J+MS display name
+        
            //constractor
             scaleimage__logo("src\\photo\\user_.png",user_photo);
             scaleimage__logo("src\\photo\\prop_rel.png",properties);
@@ -275,7 +177,7 @@ public class home_for_stu extends javax.swing.JFrame{
             scaleimage__logo("src\\photo\\botton\\min_rel.png",min_max);
             Setting_panel.setVisible(false);
             
-    }*/
+    }
     public void scaleimage_butt1(){
         
         ImageIcon icon = new ImageIcon ("src\\photo\\white.png");
@@ -311,12 +213,6 @@ public class home_for_stu extends javax.swing.JFrame{
         for5_courses = new javax.swing.JLabel();
         for6_courses = new javax.swing.JLabel();
         for4_courses = new javax.swing.JLabel();
-        Chat = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Mass = new javax.swing.JTextArea();
-        Sendmass = new javax.swing.JButton();
-        Massage = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         properties = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -374,54 +270,10 @@ public class home_for_stu extends javax.swing.JFrame{
 
         basicbody.setBackground(new java.awt.Color(255, 255, 255));
 
-        Chat.setBackground(new java.awt.Color(255, 255, 255));
-        Chat.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 171, 64)));
-        Chat.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setBackground(new java.awt.Color(255, 171, 64));
-        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Chat");
-        jLabel4.setOpaque(true);
-        Chat.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 40));
-
-        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
-
-        Mass.setEditable(false);
-        Mass.setColumns(20);
-        Mass.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Mass.setRows(5);
-        jScrollPane2.setViewportView(Mass);
-
-        Chat.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 310, 400));
-
-        Sendmass.setBackground(new java.awt.Color(255, 255, 255));
-        Sendmass.setFont(new java.awt.Font("Ink Free", 0, 12)); // NOI18N
-        Sendmass.setText("Send Massage");
-        Sendmass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SendmassActionPerformed(evt);
-            }
-        });
-        Chat.add(Sendmass, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 110, 40));
-
-        Massage.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        Massage.setForeground(new java.awt.Color(102, 102, 102));
-        Massage.setText("Enter Your Massage");
-        Massage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MassageMousePressed(evt);
-            }
-        });
-        Chat.add(Massage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 190, 40));
-
         javax.swing.GroupLayout basicbodyLayout = new javax.swing.GroupLayout(basicbody);
         basicbody.setLayout(basicbodyLayout);
         basicbodyLayout.setHorizontalGroup(
             basicbodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(basicbodyLayout.createSequentialGroup()
-                .addGap(675, 675, 675)
-                .addComponent(Chat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(basicbodyLayout.createSequentialGroup()
                 .addGap(866, 866, 866)
                 .addComponent(for4_courses, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,9 +287,7 @@ public class home_for_stu extends javax.swing.JFrame{
         basicbodyLayout.setVerticalGroup(
             basicbodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(basicbodyLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(Chat, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(599, 599, 599)
                 .addGroup(basicbodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(for4_courses, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(for6_courses, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -576,6 +426,7 @@ public class home_for_stu extends javax.swing.JFrame{
           System.out.print(couse_name+"\n");
     
     }
+    /*
     private void myActionMouseClickChat(java.awt.event.MouseEvent evt){
 
        if(len==1){
@@ -623,19 +474,11 @@ public class home_for_stu extends javax.swing.JFrame{
         
         }
           
-        EntityManager em = Persistence.createEntityManagerFactory("Software_ProjectPU").createEntityManager();
-        Query qry = em.createNamedQuery("Courses.findAll");
-        List<Courses> chat = qry.getResultList();
-        for(Courses x : chat){
-        if(x.getCoursename().equals(couse_name)){
-        Mass.setText(x.getMessage());
-        }
-        }
-        em.close();
-          
+       
          // System.out.print(couse_name+"\n");
         
     } 
+    */
     private void myActionMouseFunexit(java.awt.event.MouseEvent evt){
         if(len==1){
         if(evt.getSource()==arr1[0]){arr1[0].setBorder(border);
@@ -823,14 +666,15 @@ public class home_for_stu extends javax.swing.JFrame{
         this.arr1[4].setForeground(new Color (177,67,77));}
         if(evt.getSource()==arr1[5]){arr1[5].setBorder(null);
         this.arr1[5].setForeground(new Color (177,67,77));}
-         if(evt.getSource()==arr1[6]){arr1[6].setBorder(null);
-        this.arr1[6].setForeground(new Color (177,67,77));}
+         //if(evt.getSource()==arr1[6]){arr1[6].setBorder(null);
+        //this.arr1[6].setForeground(new Color (177,67,77));}
         }
       
     
     
     
     }
+    /*
     private void myActionMouseEnterchat (java.awt.event.MouseEvent evt){
      if(len==1){
         if(evt.getSource()==arr6[0]){
@@ -933,19 +777,7 @@ public class home_for_stu extends javax.swing.JFrame{
         }
         
     }
-    private void myActionMouseClicktoOpenCourseINFO(java.awt.event.MouseEvent evt){
-        int indx;
-        for(int i = 0 ; i < len;i++){
-        if(evt.getSource() == arr1[i]){
-        //Detect Wich one i Clk in it
-            //calling coursees inter face
-            CourseInfo obj = new CourseInfo(arr1[i].getText());
-            obj.setVisible(true);
-            
-        }
-        }
-    }
-    
+    */
     
     //****************************************************************
     
@@ -1012,50 +844,11 @@ public class home_for_stu extends javax.swing.JFrame{
         scaleimage__logo("src\\photo\\prop_rel.png",properties);
     }//GEN-LAST:event_propertiesMouseExited
 
-    private void SendmassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendmassActionPerformed
-        // TODO add your handling code here:        
-        //database code for chat
-        if(!couse_name.equals("")){
-         if(!Massage.getText().isEmpty()){
-        Massage.setFont(new Font("Arial" ,Font.PLAIN , 15));
-        String massage ;
-        massage = this.Massage.getText();
-        this.Massage.setText("");
-        //taking massage 
-        this.Mass.append(LogInInterface.name + ": " + massage+"\n\n");
-        EntityManager em = Persistence.createEntityManagerFactory("Software_ProjectPU").createEntityManager();
-        Query qry = em.createNamedQuery("Courses.findAll");
-        List<Courses> chat = qry.getResultList(); 
-        //searching for the current user department 
-        
-        for(Courses x  : chat){
-        if(x.getCoursename().toString().equals(couse_name)){
-        
-        x.setMessage(Mass.getText());
-        em.getTransaction().begin();
-        em.getTransaction().commit();
-        em.close();
-        }
-        }
-        Database.append(Mass.getText()+"\n\n");
-        }
-        }
-        else{
-        Mass.setText("Please Pick One Course to Start Chating");
-        Mass.setFont(new Font("Trebuchet MS" ,Font.PLAIN , 14));
-        }
-    }//GEN-LAST:event_SendmassActionPerformed
-
     private void change_passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_change_passMouseClicked
         // TODO add your handling code here:
         Reset_pass a = new Reset_pass();
         a.setVisible(true);
     }//GEN-LAST:event_change_passMouseClicked
-
-    private void MassageMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MassageMousePressed
-        // TODO add your handling code here:
-        this.Massage.setText("");
-    }//GEN-LAST:event_MassageMousePressed
 
     
     
@@ -1094,179 +887,139 @@ public class home_for_stu extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              
+                
             }
         });
         
     }
     
     public void fun (int ln){
-       try {
-           // iwill assume that the data base base is ready and i have 4 courses for this student
-           // now iwill generate the label i want
-           int lenth = ln ;
-           Border border = BorderFactory.createLineBorder(new Color (255,204,51));
-           // initial values we will start with
-           
-           JLabel size = new JLabel();
-           size.setLocation(720,90);
-           size.setSize(1,lenth*204);
-           //size.setText("0");
-           int hight_photo = 450;
-           int width_photo = 100;
-           int photo_Height_size = 120;
-           int photo_width_size = 160;
-           int hight_photo_dec = 450;
-           int width_photo_dec = 220;
-           int photo_dec_Height_size = 40;
-           int photo_dec_width_size = 160;
-           int hight_title = 100;
-           int width_title = 100;
-           int title_Height_size = 300;
-           int title_width_size = 40;
-           int hight_teacher = 80;
-           int width_tacher = 150;
-           int teacher_Height_size = 350;
-           int teacher_width_size = 20;
-           int hight_courseID = 80;
-           int width_courseID = 180;
-           int courseID_Height_size = 350;
-           int courseID_width_size = 20;
-           int hight_chat = 400;
-           int width_chat = 100;
-           int chat_Height_size = 50;
-           int chat_width_size = 40;
-           //Connection con = new Unit().connectOracle();
-           // Statement s = con.createStatement();
-           DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-           String user,url,Password;
-           url="jdbc:oracle:thin:@LAPTOP-1270LE9S:1521:XE";
-           user="C##happygrades";
-           Password="scranton";
-           Connection con = DriverManager.getConnection(url,user,Password);
-           con.setAutoCommit(false);
-           String query = "select distinct courses.coursename,courses.courseno,courses.image,teachers.teachername,teachers.tmode\n" +
-                   "from courses,sections,students_sections,students,teachers_sections,teachers \n" +
-                   "where  students_sections.STUDENTID = "+id+" and students_sections.sectionno=sections.sectionno and sections.courseno=courses.courseno\n" +
-                   "and sections.sectionno=teachers_sections.sectionno and teachers_sections.teacherid=teachers.teacherid";
-           Statement smt = con.createStatement();
-           ResultSet rs = smt.executeQuery(query);
-           //con.close();
-           ArrayList<Integer>cNum = new ArrayList<Integer>();
-           ArrayList<String> ta = new ArrayList<String>();
-           int i=-1;
-           while(rs.next()) {
-               
-               if(rs == null)break;
-               System.out.print(rs.getString("Tmode"));
-               if (rs.getString("Tmode").equals("TA"))
-               {
-                   cNum.add(rs.getInt("COURSENO"));
-                   ta.add(rs.getString("TEACHERNAME"));
-               }
-               else
-               {
-                   i++;
-                   
-                   arr1[i].setLocation(hight_title,width_title);
-                   arr1[i].setSize(title_Height_size,title_width_size);
-                   arr2[i].setLocation(hight_teacher,width_tacher);
-                   arr2[i].setSize(teacher_Height_size,teacher_width_size);
-                   arr3[i].setLocation(hight_courseID,width_courseID);
-                   arr3[i].setSize(courseID_Height_size,courseID_width_size);
-                   arr4[i].setLocation(hight_photo,width_photo);
-                   arr4[i].setSize(photo_width_size,photo_Height_size);
-                   arr5[i].setLocation(hight_photo_dec,width_photo_dec);
-                   arr5[i].setSize(photo_dec_width_size,photo_dec_Height_size);
-                   arr6[i].setLocation(hight_chat,width_chat);
-                   arr6[i].setSize(chat_Height_size,chat_width_size);
-                   //incremanting
-                   width_title += 180;
-                   width_tacher +=180;
-                   width_courseID +=180;
-                   width_photo+=180;
-                   width_photo_dec+=180;
-                   width_chat+=180;
-                   // start Mayar
-                   // Title
-                   arr1[i].setText(rs.getString("coursename"));
-                   // Course id
-                   arr2[i].setText(rs.getString("COURSENO"));
-                   // Name of the prof
-                   arr3[i].setText(rs.getString("TEACHERNAME"));
-                   // course image
-                   arr4[i].setIcon(new ImageIcon(rs.getString("image")));
-                   // course name
-                   arr5[i].setText(rs.getString("coursename"));
-                   // end code Mayar
-                   arr1[i].setForeground(new Color(177,67,77));
-                   arr5[i].setForeground(new Color(177,67,77));
-                   arr1[i].setVisible(true);
-                   arr2[i].setVisible(true);
-                   arr3[i].setVisible(true);
-                   arr1[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 24));
-                   arr2[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 15));
-                   arr3[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 15));
-                   arr2[i].setForeground(new Color (152,152,152));
-                   arr3[i].setForeground(new Color (102,102,102));
-                   //arr4[i].setBackground(Color.red);
-                   
-                   // arr5[i].setBorder(border);
-                   arr5[i].setFont(new Font("Trebuchet MS" ,Font.PLAIN , 14));
-                   arr5[i].setHorizontalTextPosition(JLabel.CENTER);
-                   arr4[i].setOpaque(true);
-                   arr5[i].setOpaque(true);
-                   arr5[i].setBackground(new Color(230, 235, 237));
-                   arr6[i].setText("C");
-                   arr6[i].setFont(new Font("Arial Rounded MT" ,Font.BOLD, 40));
-                   arr6[i].setBorder(border);
-                   arr6[i].setOpaque(true);
-                   arr6[i].setBackground(new Color (255,204,51));
-                   
-                   
-                   
-                   
-                   this.basicbody.add(arr1[i]);
-                   this.basicbody.add(arr2[i]);
-                   this.basicbody.add(arr3[i]);
-                   this.basicbody.add(arr4[i]);
-                   this.basicbody.add(arr5[i]);
-                   this.basicbody.add(arr6[i]);
-                   
-                   
-               }
-               //ImageIcon icon = new ImageIcon ("src\\photo\\logo_1.png");
-           }
-               
-               EntityManager em = Persistence.createEntityManagerFactory("Software_ProjectPU").createEntityManager();
-               Query qry = em.createNamedQuery("Courses.findAll");
-               List<Courses> chat = qry.getResultList();
-               for(Courses x  : chat){
-                   for(int k =  0 ; k < lenth ;k++){
-                       
-                       if(x.getCoursename().toString().toUpperCase().equals(arr1[k].getText().toUpperCase())){
-                           String path = x.getImage();
-                           arr4[k].setIcon(new ImageIcon(path));
-                       }
-                   }
-               }
-               
-               
-               //arr4[0].setIcon(new ImageIcon("src/CoursesGIFs/ElectricalCircuits1.gif"));
-               //arr4[1].setIcon(new ImageIcon("src/courses/elc.gif"));
-               
-           }
-           catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }
+    // iwill assume that the data base base is ready and i have 4 courses for this student 
+    // now iwill generate the label i want 
+    int lenth = ln ;
+    Border border = BorderFactory.createLineBorder(new Color (255,204,51));
+    
+    // initial values we will start with
+   
+    JLabel size = new JLabel();
+    size.setLocation(720,90);
+    size.setSize(1,lenth*204);
+    //size.setText("0");
+    
+    
+    int hight_photo = 450;
+    int width_photo = 100; 
+    int photo_Height_size = 120;
+    int photo_width_size = 160;
+    
+    int hight_photo_dec = 450;
+    int width_photo_dec = 220; 
+    int photo_dec_Height_size = 40;
+    int photo_dec_width_size = 160;
+     
+    
+    int hight_title = 100;
+    int width_title = 100; 
+    int title_Height_size = 300;
+    int title_width_size = 40;
+    
+    int hight_teacher = 80;
+    int width_tacher = 150;
+    int teacher_Height_size = 350;
+    int teacher_width_size = 20;
+    
+    int hight_courseID = 80;
+    int width_courseID = 180;
+    int courseID_Height_size = 350;
+    int courseID_width_size = 20;
+    
+    int hight_chat = 400;
+    int width_chat = 100; 
+    int chat_Height_size = 50;
+    int chat_width_size = 40;
+    
+    for(int i = 0 ; i< lenth ; i++){
+    
+        arr1[i].setLocation(hight_title,width_title);
+        arr1[i].setSize(title_Height_size,title_width_size);
+        arr2[i].setLocation(hight_teacher,width_tacher);
+        arr2[i].setSize(teacher_Height_size,teacher_width_size);
+        arr3[i].setLocation(hight_courseID,width_courseID);
+        arr3[i].setSize(courseID_Height_size,courseID_width_size);
+        arr4[i].setLocation(hight_photo,width_photo);
+        arr4[i].setSize(photo_width_size,photo_Height_size);
+        arr5[i].setLocation(hight_photo_dec,width_photo_dec);
+        arr5[i].setSize(photo_dec_width_size,photo_dec_Height_size);
+        //arr6[i].setLocation(hight_chat,width_chat);
+        //arr6[i].setSize(chat_Height_size,chat_width_size);
+        //incremanting
+        width_title += 180; 
+        width_tacher +=180;
+        width_courseID +=180;
+        width_photo+=180;
+        width_photo_dec+=180;
+        width_chat+=180;
+        arr1[i].setText(c.get(i).getCoursename());
+        arr1[i].setForeground(new Color(177,67,77));
+        arr5[i].setForeground(new Color(177,67,77));
+        arr2[i].setText(String.valueOf(c.get(i).getCourseno()));
+        arr1[i].setVisible(true);
+        arr2[i].setVisible(true);
+        arr3[i].setVisible(true);
+        arr1[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 24));
+        arr2[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 15));
+        arr3[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 15));
+        arr2[i].setForeground(new Color (152,152,152));
+        arr3[i].setForeground(new Color (102,102,102));
+        //arr4[i].setBackground(Color.red);
         
-           }       
+       // arr5[i].setBorder(border);
+        arr5[i].setFont(new Font("Trebuchet MS" ,Font.PLAIN , 14));
+        arr5[i].setHorizontalTextPosition(JLabel.CENTER);
+        arr4[i].setOpaque(true);
+        arr5[i].setOpaque(true);
+        arr5[i].setBackground(new Color(230, 235, 237));
+        //arr6[i].setText("C");
+        //arr6[i].setFont(new Font("Arial Rounded MT" ,Font.BOLD, 40));
+        //arr6[i].setBorder(border);
+        //arr6[i].setOpaque(true);
+        //arr6[i].setBackground(new Color (255,204,51));
+        /*
+        arr1[0].setText("Computer Programming");
+        arr1[1].setText("Computer Architecture 1");
+        arr1[2].setText("Electrical Circuits lab");
+        arr1[3].setText("Electronic Circuits 1");
+        arr1[4].setText("Dumpy Boy");
+        */
+
+        this.basicbody.add(arr1[i]);
+        this.basicbody.add(arr2[i]);
+        this.basicbody.add(arr3[i]);
+        this.basicbody.add(arr4[i]);
+        this.basicbody.add(arr5[i]);
+        //this.basicbody.add(arr6[i]);
+        
+        
+    }
+   
+    
+     EntityManager em = Persistence.createEntityManagerFactory("Software_ProjectPU").createEntityManager();
+        Query qry = em.createNamedQuery("Courses.findAll");
+        List<Courses> chat = qry.getResultList();
+        for(Courses x  : chat){
+            for(int i =  0 ; i < lenth ;i ++){
+                
+            if(x.getCoursename().toString().toUpperCase().equals(arr1[i].getText().toUpperCase())){
+                String path = x.getImage();
+                arr4[i].setIcon(new ImageIcon(path));
+                System.out.print(path);
+            }
+            }
+        }
+   
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Chat;
-    private javax.swing.JTextArea Mass;
-    private javax.swing.JTextField Massage;
-    private javax.swing.JButton Sendmass;
     private javax.swing.JPanel Setting_panel;
     private javax.swing.JPanel basicbody;
     private javax.swing.JPanel body;
@@ -1280,10 +1033,8 @@ public class home_for_stu extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel min_max;
     private javax.swing.JLabel properties;

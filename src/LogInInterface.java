@@ -1,8 +1,11 @@
 
-import Tables.*;
+import database.Students;
+import database.Teachers;
 import java.awt.Color;
 import java.awt.Image;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -10,55 +13,160 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author User
+ */
 class thr extends Thread {
 
-    @Override
     public void run() {
-
-        try {
-            NewClass c = new NewClass();
-            c.fun();
-        } catch (Exception e) {
-            System.out.println("my thread interrupted");
-        }
+   
+      try
+     {
+        NewClass c= new NewClass ();
+        c.fun();
+  
+     }
+     catch(Exception e)
+     {
+        System.out.println("my thread interrupted");
+     }
     }
 
 }
-
 public class LogInInterface extends javax.swing.JFrame {
 
-    
-    int count = 0;
-    // specify the roles for every user
+    /**
+     * Creates new form LogInInterface
+     */
+     static int count = 0;
+     // specify the roles for every user
     // s -> student , p -> professor , t -> Ta
     public static String role ;
     // srore the id for the user
     public static int id;
     // name for the user
     public static String name;
-    
     public LogInInterface() {
         initComponents();
-        scaleimage("src\\photo\\botton\\back_rel.png",this.jLbl_ReturnBack);
-        scaleimage("src\\photo\\password (2).png",this.jLbl_Password);    
-        scaleimage("src\\photo\\user.png",this.jLbl_ID);
-        scaleimage("src\\photo\\inv.png",this.jLbl_Visible);      
-        scaleimage("src\\photo\\logo_1.png",this.jLbl_Logo);     
-        scaleimage("src\\photo\\LogIn.png",this.jLbl_Img); 
+        scaleimage__backrel();
+       scaleimage__pass();
+       scaleimage__user();
+       scaleimage__unvis();
+       scaleimage__login();
+       scaleimage__logo();
+    }
+    
+    
+    
+    
+    //jLbl_ReturnBack
+    /*public void scaleimage__backclick(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\botton\\pressed.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_ReturnBack.getWidth(),this.jLbl_ReturnBack.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_ReturnBack.setIcon(scaledIcon);
+    }
+    */
+    
+    
+    public void scaleimage__logo(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\logo_1.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_Logo.getWidth(),this.jLbl_Logo.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_Logo.setIcon(scaledIcon);
+    }
+    
+    public void scaleimage__vis(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\vis.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_Visible.getWidth(),this.jLbl_Visible.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_Visible.setIcon(scaledIcon);
+    }
+   
+   public void scaleimage__unvis(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\inv.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_Visible.getWidth(),this.jLbl_Visible.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_Visible.setIcon(scaledIcon);
+    }
+    
+   public void scaleimage__backclick(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\botton\\pressed.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_ReturnBack.getWidth(),this.jLbl_ReturnBack.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_ReturnBack.setIcon(scaledIcon);
+    }
+   
+   public void scaleimage__user(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\user.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_ID.getWidth(),this.jLbl_ID.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_ID.setIcon(scaledIcon);
+    }
+   public void scaleimage__login(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\LogIn.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_Img.getWidth(),this.jLbl_Img.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_Img.setIcon(scaledIcon);
+    }
+   public void scaleimage__pass(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\password (2).png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_Password.getWidth(),this.jLbl_Password.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_Password.setIcon(scaledIcon);
+    }
+   public void scaleimage__backcwhite(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\white.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_LogIn.getWidth(),this.jLbl_LogIn.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_LogIn.setIcon(scaledIcon);
+    }
+    public void scaleimage__backc_white_remove(){
+        ImageIcon icon = new ImageIcon ("");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_LogIn.getWidth(),this.jLbl_LogIn.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_LogIn.setIcon(scaledIcon);
+    }
+      public void scaleimage__backrel(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\botton\\back_rel.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_ReturnBack.getWidth(),this.jLbl_ReturnBack.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_ReturnBack.setIcon(scaledIcon);
+    }
+      
+      public void scaleimage__backpre(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\botton\\back_pre.png");
+        Image img = icon.getImage();
+        Image imgscale = img.getScaledInstance(this.jLbl_ReturnBack.getWidth(),this.jLbl_ReturnBack.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgscale);
+        jLbl_ReturnBack.setIcon(scaledIcon);
     }
 
-     
-     public void scaleimage(String path, JLabel lb){
-        ImageIcon icon = new ImageIcon (path);
-        Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(lb.getWidth(),lb.getHeight(),Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(imgscale);
-        lb.setIcon(scaledIcon);
-    }
-     
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,63 +285,72 @@ public class LogInInterface extends javax.swing.JFrame {
 
     private void jLbl_VisibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_VisibleMousePressed
         // TODO add your handling code here:
-
-
+    
+       
     }//GEN-LAST:event_jLbl_VisibleMousePressed
 
     private void jLbl_ReturnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ReturnBackMouseEntered
-        
-        scaleimage("src\\photo\\botton\\back_pre.png",this.jLbl_ReturnBack);
+        // TODO add your handling code here:
+        //jLbl_ReturnBack.setBackground(Color.BLUE);
+        //jLbl_ReturnBack.setOpaque(true);
+        scaleimage__backpre();
     }//GEN-LAST:event_jLbl_ReturnBackMouseEntered
 
     private void jLbl_ReturnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ReturnBackMouseClicked
         // TODO add your handling code here:
-
-        scaleimage("src\\photo\\botton\\back_rel.png",this.jLbl_ReturnBack);
+        
+        scaleimage__backrel();
+        
         new Main_frame().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLbl_ReturnBackMouseClicked
 
     private void jLbl_ReturnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ReturnBackMouseExited
         // TODO add your handling code here:
-       // scaleimage__backclick();
-       // scaleimage__backrel();
-        scaleimage("src\\photo\\botton\\back_rel.png",this.jLbl_ReturnBack);
-
+        scaleimage__backclick();
+        scaleimage__backrel();
+        
+        
     }//GEN-LAST:event_jLbl_ReturnBackMouseExited
 
     private void jLbl_LogInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_LogInMouseEntered
         // TODO add your handling code here:
-         scaleimage("src\\photo\\white.png",this.jLbl_LogIn);
+        scaleimage__backcwhite();
         jLbl_LogIn.setForeground(Color.black);
-
+        
     }//GEN-LAST:event_jLbl_LogInMouseEntered
 
     private void jLbl_LogInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_LogInMouseExited
         // TODO add your handling code here:
-         scaleimage("",this.jLbl_LogIn);
-        jLbl_LogIn.setForeground(new Color(0, 153, 0));
-
+        scaleimage__backc_white_remove();
+        jLbl_LogIn.setForeground(new Color(0,153,0));
+    
     }//GEN-LAST:event_jLbl_LogInMouseExited
 
     private void jLbl_VisibleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_VisibleMouseClicked
         // TODO add your handling code here:
-
+        
         // 0 mean state 1 visilbe (initial one)
         // 1  mean state 2 un vis (secound state )
         // 2 back to initial state
         // by majdy
-        if (count == 0) {
-            scaleimage("src\\photo\\vis.png",this.jLbl_Visible);
-            jPasswordField.setEchoChar('c');
-        }
-        if (count == 1) {
-            scaleimage("src\\photo\\inv.png",this.jLbl_Visible);
-            jPasswordField.setEchoChar('*');
+        
+ 
+        if(count == 0 ){
+            scaleimage__vis(); 
+        jPasswordField.setEchoChar((char) 0);
+       }
+
+        
+        if(count == 1){
+            scaleimage__unvis(); 
+        jPasswordField.setEchoChar('*');
+      
         }
         count++;
-        if (count == 2)
-            count = 0;
+        
+        if(count == 2)
+        count = 0;
     }//GEN-LAST:event_jLbl_VisibleMouseClicked
 
     private void jLbl_LogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_LogInMouseClicked
@@ -254,7 +371,6 @@ public class LogInInterface extends javax.swing.JFrame {
               id_temp/=10;
               digit++;
                }
-              
               EntityManagerFactory emf = Persistence.createEntityManagerFactory("Software_ProjectPU" );
               EntityManager em = emf.createEntityManager();
                // check for student 
@@ -268,8 +384,6 @@ public class LogInInterface extends javax.swing.JFrame {
                            this.dispose();
                            thr x = new thr();
                            x.start();
-
-               
                 }
                 else if (digit == 4 || digit == 5){
                     TypedQuery<Teachers> q = em.createQuery("SELECT t FROM Teachers t WHERE t.teacherid = :teacherid and t.teacherpassword =:teacherpassword",Teachers.class);
@@ -281,12 +395,10 @@ public class LogInInterface extends javax.swing.JFrame {
                            this.dispose();
                            thr x = new thr();
                            x.start();
-             
                 }
               else  
-                    // not a stu or prof or ta                
+                    // not a stu or prof or ta
                      throw new NoResultException();
-          em.close();      
         }
         catch(NumberFormatException ex){
                JOptionPane.showMessageDialog(null,"The id  must be a number","Information",JOptionPane.INFORMATION_MESSAGE);
@@ -297,13 +409,15 @@ public class LogInInterface extends javax.swing.JFrame {
         catch(Exception ex){
                JOptionPane.showMessageDialog(null, ex.toString(),"Error",JOptionPane.ERROR_MESSAGE);  
         }              
-    }//GEN-LAST:event_jLbl_LogInMouseClicked
+    }                                       
      else 
         JOptionPane.showMessageDialog(null,"Please enter both ID and password","Information",JOptionPane.INFORMATION_MESSAGE);
     // Mayar end
-    }
+    }//GEN-LAST:event_jLbl_LogInMouseClicked
 
-  
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -335,7 +449,7 @@ public class LogInInterface extends javax.swing.JFrame {
             }
         });
     }
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

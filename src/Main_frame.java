@@ -13,6 +13,7 @@ import javax.swing.JLabel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author Legion
@@ -34,32 +35,36 @@ public class Main_frame extends javax.swing.JFrame {
         scalehead_ad();
         this.flipedimage.setVisible(false);
     }
-
-    public void scalehead_ad() {
-        ImageIcon icon = new ImageIcon("src\\photo\\237-color.png");
+    
+    
+    
+     public void scalehead_ad(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\237-color.png");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(ad1.getWidth(), ad1.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance(ad1.getWidth(),ad1.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
         ad1.setIcon(scaledIcon);
-
-        ImageIcon icon1 = new ImageIcon("src\\photo\\237-color.png");
+        
+        ImageIcon icon1 = new ImageIcon ("src\\photo\\237-color.png");
         Image img1 = icon1.getImage();
-        Image imgscale1 = img1.getScaledInstance(ad2.getWidth(), ad2.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale1 = img1.getScaledInstance(ad2.getWidth(),ad2.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon1 = new ImageIcon(imgscale1);
         ad2.setIcon(scaledIcon1);
-
-        ImageIcon icon2 = new ImageIcon("src\\photo\\237-color.png");
+        
+        ImageIcon icon2 = new ImageIcon ("src\\photo\\237-color.png");
         Image img2 = icon2.getImage();
-        Image imgscale2 = img2.getScaledInstance(ad3.getWidth(), ad3.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale2 = img2.getScaledInstance(ad3.getWidth(),ad3.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon2 = new ImageIcon(imgscale2);
         ad3.setIcon(scaledIcon2);
-
-        ImageIcon icon3 = new ImageIcon("src\\photo\\237-color.png");
+        
+        ImageIcon icon3 = new ImageIcon ("src\\photo\\237-color.png");
         Image img3 = icon3.getImage();
-        Image imgscale3 = img3.getScaledInstance(ad4.getWidth(), ad4.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale3 = img3.getScaledInstance(ad4.getWidth(),ad4.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon3 = new ImageIcon(imgscale3);
         ad4.setIcon(scaledIcon);
     }
+     
+    
 
 //    public void scalehead_photo1(){
 //        ImageIcon icon = new ImageIcon ("src\\photo\\Trial.gif");
@@ -68,79 +73,97 @@ public class Main_frame extends javax.swing.JFrame {
 //        ImageIcon scaledIcon = new ImageIcon(imgscale);
 //        photo1.setIcon(scaledIcon);
 //    }
-    public void scalehead_login() {
+    
+    public void scalehead_login(){
 //        ImageIcon icon = new ImageIcon ("src\\photo\\login_panel.png");
 //        Image img = icon.getImage();
 //        Image imgscale = img.getScaledInstance(login_frame.getWidth(),login_frame.getHeight(),Image.SCALE_SMOOTH);
 //        ImageIcon scaledIcon = new ImageIcon(imgscale);
 //        login_frame.setIcon(scaledIcon);
     }
-
-    public void scalehead_camp() {
-        ImageIcon icon = new ImageIcon("src\\photo\\GreenUni.jpg");
+     public void scalehead_camp(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\GreenUni.jpg");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(camp.getWidth(), camp.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance(camp.getWidth(),camp.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
         camp.setIcon(scaledIcon);
     }
     //login_panel
-
-    public void scalehead_logo() {
-        ImageIcon icon = new ImageIcon("src\\photo\\logo.gif");
+public void scalehead_logo(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\logo.gif");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance(logo.getWidth(),logo.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
         logo.setIcon(scaledIcon);
     }
-
-    public void scalehead() {
-        ImageIcon icon = new ImageIcon("src\\photo\\Untitled - Made with DesignCap (11).jpg");
+    
+     public void scalehead(){
+        ImageIcon icon = new ImageIcon ("src\\photo\\Untitled - Made with DesignCap (11).jpg");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(head.getWidth(), head.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance(head.getWidth(),head.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
         head.setIcon(scaledIcon);
     }
-
-    public void scaleimage_butt1() {
-
-        ImageIcon icon = new ImageIcon("src\\photo\\white.png");
+     
+     
+     
+    
+  
+    
+     public void scaleimage_butt1(){
+        
+        ImageIcon icon = new ImageIcon ("src\\photo\\white.png");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(butt1.getWidth(), butt1.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance( butt1.getWidth(), butt1.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
-        butt1.setIcon(scaledIcon);
+         butt1.setIcon(scaledIcon);
 
     }
-
-    public void scaleimage_press_exit() {
-
-        ImageIcon icon = new ImageIcon("src\\photo\\botton\\press_exit.png");
+    
+    
+    
+      
+    public void scaleimage_press_exit(){
+        
+        ImageIcon icon = new ImageIcon ("src\\photo\\botton\\press_exit.png");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(exit.getWidth(), exit.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance( exit.getWidth(), exit.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
-        exit.setIcon(scaledIcon);
+         exit.setIcon(scaledIcon);
 
     }
-
-    public void scaleimage_rel_exit() {
-
-        ImageIcon icon = new ImageIcon("src\\photo\\botton\\cross.png");
+     public void scaleimage_rel_exit(){
+        
+        ImageIcon icon = new ImageIcon ("src\\photo\\botton\\cross.png");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(exit.getWidth(), exit.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance( exit.getWidth(), exit.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
-        exit.setIcon(scaledIcon);
+         exit.setIcon(scaledIcon);
 
     }
-
-    public void flipedimage() {
-
-        ImageIcon icon = new ImageIcon("src\\photo\\dark.png");
+     public void flipedimage(){
+        
+        ImageIcon icon = new ImageIcon ("src\\photo\\dark.png");
         Image img = icon.getImage();
-        Image imgscale = img.getScaledInstance(flipedimage.getWidth(), flipedimage.getHeight(), Image.SCALE_SMOOTH);
+        Image imgscale = img.getScaledInstance( flipedimage.getWidth(), flipedimage.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
         flipedimage.setIcon(scaledIcon);
 
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -542,7 +565,7 @@ public class Main_frame extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        ImageIcon icon = new ImageIcon("src\\photo\\icon.png");
+        ImageIcon icon = new ImageIcon ("src\\photo\\icon.png");
         setIconImage(icon.getImage());
     }//GEN-LAST:event_formWindowActivated
 
@@ -565,7 +588,8 @@ public class Main_frame extends javax.swing.JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI GuideURL = new URI("https://zajelbs.najah.edu/servlet/ClaRomDir");
             desktop.browse(GuideURL);
-        } catch (URISyntaxException | IOException ex) {
+        }
+        catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jLbl_ClassroomsGuideMousePressed
@@ -589,7 +613,8 @@ public class Main_frame extends javax.swing.JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI PlansURL = new URI("https://zajelbs.najah.edu/servlet/UniCurricula");
             desktop.browse(PlansURL);
-        } catch (URISyntaxException | IOException ex) {
+        }
+        catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jLbl_StudyPlansMousePressed
@@ -613,7 +638,8 @@ public class Main_frame extends javax.swing.JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI stuGuideURL = new URI("https://www.najah.edu/ar/academic/admissions/student-guide-book/");
             desktop.browse(stuGuideURL);
-        } catch (URISyntaxException | IOException ex) {
+        }
+        catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jLbl_GuideStudentMousePressed
@@ -634,13 +660,13 @@ public class Main_frame extends javax.swing.JFrame {
     private void jLbl_ContactDetailsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ContactDetailsMouseEntered
         // TODO add your handling code here:
         flipedimage();
-        flipedimage.setText("<html>Contact Us on Happy Grades!<br/> <br/>        happygrades2@gmail.com</html>");
+         flipedimage.setText("<html>Contact Us on Happy Grades!<br/> <br/>        happygrades2@gmail.com</html>");
         flipedimage.setVisible(true);
     }//GEN-LAST:event_jLbl_ContactDetailsMouseEntered
 
     private void jLbl_ContactDetailsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ContactDetailsMouseExited
         // TODO add your handling code here:
-        flipedimage.setVisible(false);
+         flipedimage.setVisible(false);
     }//GEN-LAST:event_jLbl_ContactDetailsMouseExited
 
     private void jLbl_ContactUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ContactUsMousePressed
@@ -649,20 +675,21 @@ public class Main_frame extends javax.swing.JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI stuGuideURL = new URI("mailto:happygrades2@gmail.com");
             desktop.browse(stuGuideURL);
-        } catch (URISyntaxException | IOException ex) {
+        }
+        catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jLbl_ContactUsMousePressed
 
     private void butt1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butt1MouseExited
         // TODO add your handling code here:
-        butt1.setForeground(new Color(255, 255, 255));
+        butt1.setForeground(new Color(255,255,255));
         butt1.setIcon(null);
     }//GEN-LAST:event_butt1MouseExited
 
     private void butt1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butt1MouseEntered
         // TODO add your handling code here:
-        butt1.setForeground(new Color(0, 0, 0));
+        butt1.setForeground(new Color(0,0,0));
         scaleimage_butt1();
     }//GEN-LAST:event_butt1MouseEntered
 
@@ -723,7 +750,8 @@ public class Main_frame extends javax.swing.JFrame {
             }
         });
     }
-
+    
+       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ad1;

@@ -163,7 +163,7 @@ In this sprint, we have forecasted to complete 3 user stories and we have finsih
 During the period of work on Sprint 2, we divided our roles simultaneously so that when each team finished its task, the project would be handed over to the next team.
 photo when pairing some codes:
 <img src ="https://trello.com/1/cards/61914e2d82a0d36684339692/attachments/61914f19c031108b14870121/download/Zoom_Meeting_40-Minutes__11_12_2021_9_59_38_PM.png">
-
+<img src ="https://64.media.tumblr.com/e8255268d02f67aedc288c7f68af258f/e1bda15a4d7ac5d7-28/s640x960/3e6b7d5fa7210fa66a1476fc90bae9d2623c97be.png">
 
 
 <a href="https://twitter.com">

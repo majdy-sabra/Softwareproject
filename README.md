@@ -133,6 +133,13 @@ Chanel ID = C02G1KMAT5M
 <br/><br>
 <br/><br>
 <br/><br>
+<img src ="https://64.media.tumblr.com/61046013560ea9d0d6cd9bd689b29e95/6eefed59584eed6f-3c/s2048x3072/3d66bcd8a714d5a1497b448b8f4b8327024483ff.png">
+<br/><br>
+## A forecast of how many story points we could complete during sprint 2
+<br/><br>
+
+
+
 <a href="https://twitter.com">
   <img align="left" alt="Brijesh Dhanani | Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />
 </a>

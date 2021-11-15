@@ -129,17 +129,23 @@ Chanel ID = C02G1KMAT5M
 <br/><br>
 
 # Tools :
+
 <img src ="https://64.media.tumblr.com/0dd4e5ff0af699b7afc56b2def9ec4f4/d3fc414ca382a3b8-b3/s640x960/73d617e9f4b8b92eebf53436c4f7c58181349979.png">
 <br/><br>
 <br/><br>
 <br/><br>
 <img src ="https://64.media.tumblr.com/61046013560ea9d0d6cd9bd689b29e95/6eefed59584eed6f-3c/s2048x3072/3d66bcd8a714d5a1497b448b8f4b8327024483ff.png">
 <br/><br>
+<br/><br>
+
 ## A forecast of how many story points we could complete during sprint 2
+
 <br/><br>
 In this sprint, we have forecasted to complete 3 user stories and we have finsih them in time.
 <br/><br>
-## Daily Scrums 
+
+## Daily Scrums
+
  We have made many multiple Daily Scrums when working on sprint 2 you can find them in trello as (Sprint #2 Meetings Documentation).
  this some photo from daily scrum:
  <img src ="https://trello.com/1/cards/61914e2d82a0d36684339692/attachments/61914f014f7ab15333d67069/download/Zoom_Meeting_40-Minutes__11_12_2021_9_54_52_PM.png">

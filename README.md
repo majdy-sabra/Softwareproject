@@ -159,6 +159,11 @@ In this sprint, we have forecasted to complete 3 user stories and we have finsih
 <br/><br>
 <br/><br>
 
+## how we paired or mobbed our code
+During the period of work on Sprint 2, we divided our roles simultaneously so that when each team finished its task, the project would be handed over to the next team.
+photo when pairing some codes:
+<img src ="https://trello.com/1/cards/61914e2d82a0d36684339692/attachments/61914f19c031108b14870121/download/Zoom_Meeting_40-Minutes__11_12_2021_9_59_38_PM.png">
+
 
 
 <a href="https://twitter.com">

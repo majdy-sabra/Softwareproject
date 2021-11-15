@@ -165,6 +165,8 @@ photo when pairing some codes:
 <img src ="https://trello.com/1/cards/61914e2d82a0d36684339692/attachments/61914f19c031108b14870121/download/Zoom_Meeting_40-Minutes__11_12_2021_9_59_38_PM.png">
 <img src ="https://64.media.tumblr.com/e8255268d02f67aedc288c7f68af258f/e1bda15a4d7ac5d7-28/s640x960/3e6b7d5fa7210fa66a1476fc90bae9d2623c97be.png">
 
+<br/><br>
+<br/><br>
 
 <a href="https://twitter.com">
   <img align="left" alt="Brijesh Dhanani | Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />
@@ -178,7 +180,8 @@ photo when pairing some codes:
 <a href="https://www.instagram.com">
   <img align="left" alt="Brijesh Dhanani" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/instagram.svg" />
 </a>
-
+<br/><br>
+<br/><br>
 <br />
 <br />
 

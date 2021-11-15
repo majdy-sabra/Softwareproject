@@ -94,6 +94,8 @@ Khalid : with the skills I’ve gained over previous semesters, I’m very quali
 
 ## Development Team members estimates.
 Only members of the development team participated in the creation of the estimates as the job was chosen for each team based on the skill of the person
+update here task 4 holder**
+
 <br/><br>
 <br/><br>
 ## A forecast of how many story points we will finish in the first sprint:

@@ -161,7 +161,7 @@ In this sprint, we have forecasted to complete 3 user stories, and we have finsi
 
 ## how we paired or mobbed our code
 While working on Sprint #2, we have divided the tasks between us as pair programming teams, and we were working gradually, such that when each team have finished their required tasks, the code would be handed over to the next team, and will be paired with the whole code of the project.
-photo when pairing some codes:
+photos while we were pairing our codes:
 <img src ="https://trello.com/1/cards/61914e2d82a0d36684339692/attachments/61914f19c031108b14870121/download/Zoom_Meeting_40-Minutes__11_12_2021_9_59_38_PM.png">
 <img src ="https://64.media.tumblr.com/e8255268d02f67aedc288c7f68af258f/e1bda15a4d7ac5d7-28/s640x960/3e6b7d5fa7210fa66a1476fc90bae9d2623c97be.png">
 

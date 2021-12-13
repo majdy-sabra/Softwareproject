@@ -168,11 +168,14 @@ Photos that show when we were pairing our codes:
 <img src ="https://64.media.tumblr.com/e8255268d02f67aedc288c7f68af258f/e1bda15a4d7ac5d7-28/s640x960/3e6b7d5fa7210fa66a1476fc90bae9d2623c97be.png">
 <img src ="https://64.media.tumblr.com/bdd978f9420a8bd2c5283e98b91699b6/1072b859e6a8f642-b0/s2048x3072/252e12d072ad5fc93a78fe4053597a5fdf43637b.png">
 # Use Case's 
+
 <img src ="https://64.media.tumblr.com/24147fd7402e9644345ebda30619dbf3/130e2571c7a1c2f3-cf/s2048x3072/75bc6b22958f0d0bf58401d1ceadd7e0a9bd3987.png">
 <img src ="https://64.media.tumblr.com/b1458e41e70a9836a12eafa64cfe0995/130e2571c7a1c2f3-68/s2048x3072/f3bbecdac3f17635eb252d14618137d7b7628cb0.png">
 <img src ="https://64.media.tumblr.com/8aff3ada762aae91bf9aa11bab405f06/130e2571c7a1c2f3-f0/s2048x3072/80cf18b3c8b1292adfe6c34119d801abfe034ef4.png">
 <img src ="https://64.media.tumblr.com/e84ffcd643f7df29a4333cbfe192e698/130e2571c7a1c2f3-bc/s2048x3072/0d7a05f69e0f442c752489fcb502f5caf2ae8c90.png">
+
 # Full Design
+
 <img src ="https://64.media.tumblr.com/6d0b36d06ac28f23071cd3f447f500b6/130e2571c7a1c2f3-0c/s2048x3072/e81a217c0e4d7640833dd9f9d54a85cd191cefbd.png">
 
 

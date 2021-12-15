@@ -114,7 +114,11 @@ public class home_for_prof extends javax.swing.JFrame{
         for (int i = 0 ; i < lenth ; i++){
           arr1[i].addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseFunclick(evt);
+                try {
+                    myActionMouseFunclick(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(home_for_prof.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 myActionMouseFunexit(evt);
@@ -436,54 +440,33 @@ public class home_for_prof extends javax.swing.JFrame{
 
     
     Border border = BorderFactory.createLineBorder ( new Color (102,102,102));
-    private void myActionMouseFunclick(java.awt.event.MouseEvent evt){
+    private void myActionMouseFunclick(java.awt.event.MouseEvent evt) throws SQLException{
     
-       if(len==1){
-        if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-        }
-        if(len==2){
-         if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-         if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-        }
-        if(len==3){
-        if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-        if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-        if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-        }
-        if(len==4){
-       if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-       if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-       if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-       if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-
-        }
-        if(len==5){
-       if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-       if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-       if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-       if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-       if(evt.getSource()==arr1[4]){couse_name = arr1[4].getText();}
-        }
-        if(len==6){
-         if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-         if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-         if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-         if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-         if(evt.getSource()==arr1[4]){couse_name = arr1[4].getText();}
-         if(evt.getSource()==arr1[5]){couse_name = arr1[5].getText();}
-        }
-          if(len==7){
-         if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-         if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-         if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-         if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-         if(evt.getSource()==arr1[4]){couse_name = arr1[4].getText();}
-         if(evt.getSource()==arr1[5]){couse_name = arr1[5].getText();}
-         if(evt.getSource()==arr1[6]){couse_name = arr1[6].getText();}
-        
-        }
-          System.out.print(couse_name+"\n");
-    
+       for(int i = 0 ; i < len;i++){
+        if(evt.getSource() == arr1[i]){
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+            String user,url,Password;
+            url="jdbc:oracle:thin:@LAPTOP-1270LE9S:1521:XE";
+            user="C##happygrades";
+            Password="scranton";
+            Connection con = DriverManager.getConnection(url,user,Password);
+            con.setAutoCommit(false);
+            String sql = "select count(teachers_sections.sectionno)\n" +
+                         "from teachers_sections, sections\n" +
+                         "where sections.courseno = "+c.get(i).getCourseno()+"\n" +
+                         "and sections.sectionno = teachers_sections.sectionno\n" +
+                         "and teachers_sections.teacherid ="+LogInInterface.id+ "\n" +
+                         "group by teachers_sections.teacherid";      
+            Statement smt = con.createStatement();
+            ResultSet sec_cnt_rslt  = smt.executeQuery(sql);//receives resultset from sql statement
+            int sec_cnt = 0;
+            while(sec_cnt_rslt.next())
+                sec_cnt = sec_cnt_rslt.getInt(1);//translate resultset into integer value-number of sections for chosen course-
+            
+            ProfessorCourseSections.course_no = c.get(i).getCourseno().intValue();
+            new ProfessorCourseSections(sec_cnt).setVisible(true);
+            dispose();
+        }}
     }
     private void myActionMouseClickChat(java.awt.event.MouseEvent evt){
 
@@ -879,6 +862,7 @@ public class home_for_prof extends javax.swing.JFrame{
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         // TODO add your handling code here:
         this.dispose();
+        new Main_frame().setVisible(true);
     }//GEN-LAST:event_exitMouseClicked
 
     private void exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseEntered
@@ -1089,14 +1073,7 @@ public class home_for_prof extends javax.swing.JFrame{
         arr6[i].setBorder(border);
         arr6[i].setOpaque(true);
         arr6[i].setBackground(new Color (255,204,51));
-        /*
-        arr1[0].setText("Computer Programming");
-        arr1[1].setText("Computer Architecture 1");
-        arr1[2].setText("Electrical Circuits lab");
-        arr1[3].setText("Electronic Circuits 1");
-        arr1[4].setText("Dumpy Boy");
-
-        */
+        
         this.basicbody.add(arr1[i]);
         this.basicbody.add(arr2[i]);
         this.basicbody.add(arr3[i]);

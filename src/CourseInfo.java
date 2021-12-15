@@ -1,7 +1,15 @@
 
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,13 +29,107 @@ public class CourseInfo extends javax.swing.JFrame {
     String tit="";
     public CourseInfo() {
        initComponents();
-
+       setGrades();
+       
     }
+   
     public CourseInfo (String head){
         initComponents();
         tit= head;
         title.setText(tit);
         scaleimage__logo("src\\photo\\backforcousesInfo.jpg", back); 
+        setGrades();
+    }
+    // Mayar Abdulkaream 
+    // this function set the grades for a specific student in the course
+     public void setGrades(){
+          try {
+              
+           DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+           String user,url,Password;
+           url="jdbc:oracle:thin:@LAPTOP-1270LE9S:1521:XE";
+           user="C##happygrades";
+           Password="scranton";
+           Connection con;
+           con = DriverManager.getConnection(url,user,Password);
+           con.setAutoCommit(false);
+           // get id for the student
+           int id = new LogInInterface().id;
+           // get section id
+           int sectionno = new home_for_stu().sectionId;
+           // get course name
+           String courseName = new home_for_stu().courseName;
+           // get course number
+           int courseId = new home_for_stu().courseId;
+           
+           title.setText(courseName);
+           
+           String query = "select grades.firstexam,grades.secondexam,grades.finalexam,grades.assignment1,grades.assignment2\n" +
+                            "from grades\n" +
+                            "where grades.id = (select students_sections.id\n" +
+                            "from students_sections\n"+
+                            "where students_sections.sectionno = " +sectionno+ "\n" +
+                            "and students_sections.studentid = "+id+")";
+           
+           Statement smt = con.createStatement(); 
+           ResultSet rs = smt.executeQuery(query);
+                      
+           rs.next();
+           
+           String first = rs.getString("firstexam");
+           String second = rs.getString("secondexam");
+           String finalVar = rs.getString("finalexam");
+           String assignment1 = rs.getString("assignment1");
+           String assignment2 = rs.getString("assignment2");
+           
+           
+           First.setText(first);
+           Second.setText(second);
+           Final.setText(finalVar);
+           Assig1.setText(assignment1);
+           Assig2.setText(assignment2);
+           
+           query = "select FIRSTWEIGHT,SECONDWEIGHT,FINALWEIGHT,ASSIGNMENT1WEIGHT,ASSIGNMENT2WEIGHT\n" +
+                    "from courses \n" +
+                    "where COURSENO = " + courseId;
+           rs = smt.executeQuery(query);
+           rs.next();
+           
+           int firstWeight = rs.getInt("FIRSTWEIGHT");
+           int secondWeight = rs.getInt("SECONDWEIGHT");
+           int finalWeight = rs.getInt("FINALWEIGHT");
+           int assignment1Weight = rs.getInt("ASSIGNMENT1WEIGHT");
+           int assignment2Weight = rs.getInt("ASSIGNMENT2WEIGHT");
+           
+           int f,s,fi,a1,a2;    
+           
+           if (first==null)
+            f = 0;     
+           else f = Integer.parseInt(first);
+
+           if (second==null)
+               s = 0;
+           else s = Integer.parseInt(second);
+           
+           if (finalVar==null)
+               fi = 0;
+           else fi = Integer.parseInt(finalVar);
+           
+           if (assignment1==null)
+               a1 = 0;
+           else a1 = Integer.parseInt(assignment1);
+           
+           if (assignment2==null)
+               a2 = 0;
+           else a2 = Integer.parseInt(assignment2);
+                  
+           int totalGrade = (int)( f * (firstWeight/100.0) + s * (secondWeight/100.0) + fi * (finalWeight/100.0) + a1 * (assignment1Weight/100.0) + a2 * (assignment2Weight/100.0) );
+           TotalGrade.setText(new Integer(totalGrade).toString());
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+          
     }
 
     /**
@@ -41,13 +143,23 @@ public class CourseInfo extends javax.swing.JFrame {
 
         title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        second = new javax.swing.JButton();
-        First = new javax.swing.JButton();
-        Final = new javax.swing.JButton();
-        Assignment = new javax.swing.JButton();
+        Second = new javax.swing.JLabel();
+        Final = new javax.swing.JLabel();
+        TotalGrade = new javax.swing.JLabel();
+        Assig1 = new javax.swing.JLabel();
+        First = new javax.swing.JLabel();
+        AssignmentLabel2 = new java.awt.Label();
+        AssignmentLabel1 = new java.awt.Label();
+        FirstLabel = new java.awt.Label();
+        SecLabel = new java.awt.Label();
+        FinalLabel = new java.awt.Label();
+        Assig2 = new javax.swing.JLabel();
+        AssignmentLabel4 = new java.awt.Label();
         back = new javax.swing.JLabel();
+        First1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         title.setBackground(new java.awt.Color(255, 255, 255));
@@ -59,83 +171,75 @@ public class CourseInfo extends javax.swing.JFrame {
         getContentPane().add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 74));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
-        jLabel1.setText(" Waht to Do ?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+        jLabel1.setText("My grades");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
-        second.setBackground(new java.awt.Color(255, 255, 255));
-        second.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        second.setText("second");
-        second.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondActionPerformed(evt);
-            }
-        });
-        getContentPane().add(second, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 230, 40));
+        Second.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Second.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Second, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 50, 40));
 
-        First.setBackground(new java.awt.Color(255, 255, 255));
-        First.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        First.setText("First");
-        First.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstActionPerformed(evt);
-            }
-        });
-        getContentPane().add(First, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 230, 40));
+        Final.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Final.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Final, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 50, 40));
 
-        Final.setBackground(new java.awt.Color(255, 255, 255));
-        Final.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        Final.setText("Final");
-        Final.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FinalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Final, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, 230, 40));
+        TotalGrade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TotalGrade.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(TotalGrade, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, 50, 40));
 
-        Assignment.setBackground(new java.awt.Color(255, 255, 255));
-        Assignment.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        Assignment.setText("Assignment");
-        Assignment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AssignmentActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Assignment, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 230, 40));
+        Assig1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Assig1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Assig1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, 50, 40));
+
+        First.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        First.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(First, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 50, 40));
+
+        AssignmentLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        AssignmentLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        AssignmentLabel2.setText("Total grade : ");
+        getContentPane().add(AssignmentLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, 150, 40));
+
+        AssignmentLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        AssignmentLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        AssignmentLabel1.setText("Assignment  :");
+        getContentPane().add(AssignmentLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 150, 40));
+
+        FirstLabel.setBackground(new java.awt.Color(255, 255, 255));
+        FirstLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        FirstLabel.setText("First             :");
+        getContentPane().add(FirstLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 150, 40));
+
+        SecLabel.setBackground(new java.awt.Color(255, 255, 255));
+        SecLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        SecLabel.setText("Second         :");
+        getContentPane().add(SecLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 150, 40));
+
+        FinalLabel.setBackground(new java.awt.Color(255, 255, 255));
+        FinalLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        FinalLabel.setText("Final            :");
+        getContentPane().add(FinalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 150, 40));
+
+        Assig2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Assig2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Assig2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, 50, 40));
+
+        AssignmentLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        AssignmentLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        AssignmentLabel4.setText("Assignment  :");
+        getContentPane().add(AssignmentLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 150, 40));
 
         back.setBackground(new java.awt.Color(255, 255, 255));
         back.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         back.setOpaque(true);
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 720, 410));
 
+        First1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        First1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        getContentPane().add(First1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 50, 40));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void AssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssignmentActionPerformed
-        // TODO add your handling code here:
-        //creating assignment interface
-        assignment_student tmp = new assignment_student();
-        tmp.setVisible(true);
-    }//GEN-LAST:event_AssignmentActionPerformed
-
-    private void FirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstActionPerformed
-        // TODO add your handling code here:
-        Firstframe ob = new Firstframe();
-        ob.setVisible(true);
-        
-    }//GEN-LAST:event_FirstActionPerformed
-
-    private void secondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondActionPerformed
-        // TODO add your handling code here:
-       secondframe x = new secondframe();
-       x.setVisible(true);
-    }//GEN-LAST:event_secondActionPerformed
-
-    private void FinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalActionPerformed
-        // TODO add your handling code here:
-        finalframe y = new finalframe();
-        y.setVisible(true);
-    }//GEN-LAST:event_FinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +253,7 @@ public class CourseInfo extends javax.swing.JFrame {
         Image imgscale = img.getScaledInstance(a.getWidth(),a.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgscale);
         a.setIcon(scaledIcon);
+        
     }
      
      
@@ -186,12 +291,21 @@ public class CourseInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Assignment;
-    private javax.swing.JButton Final;
-    private javax.swing.JButton First;
+    private javax.swing.JLabel Assig1;
+    private javax.swing.JLabel Assig2;
+    private java.awt.Label AssignmentLabel1;
+    private java.awt.Label AssignmentLabel2;
+    private java.awt.Label AssignmentLabel4;
+    private javax.swing.JLabel Final;
+    private java.awt.Label FinalLabel;
+    private javax.swing.JLabel First;
+    private javax.swing.JLabel First1;
+    private java.awt.Label FirstLabel;
+    private java.awt.Label SecLabel;
+    private javax.swing.JLabel Second;
+    private javax.swing.JLabel TotalGrade;
     private javax.swing.JLabel back;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton second;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

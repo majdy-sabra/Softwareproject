@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import oracle.jdbc.pool.OracleDataSource;
 public class home_for_stu extends javax.swing.JFrame{
 
    JLabel arr1[];//for Title 
@@ -42,7 +43,12 @@ public class home_for_stu extends javax.swing.JFrame{
    JLabel arr4[];// for Photo courses
    JLabel arr5[];// for Photo courses title
    JLabel arr6[];// for chating Icon's
-
+   String secno[];// for setion number 
+   
+   static int sectionId; // the selected section number
+   static String courseName;// the selected course name
+   static int courseId;// the selected course id 
+   
    int len;
    static StringBuffer Database = new  StringBuffer("");
    String couse_name="";
@@ -56,17 +62,14 @@ public class home_for_stu extends javax.swing.JFrame{
        
         int length;
         this.id=LogInInterface.id;
-        
+
               // Mayar start
               // count for courses
-              //Connection con = new Unit().connectOracle();
-              //Statement s = con.createStatement();
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            String user,url,Password;
-            url="jdbc:oracle:thin:@LAPTOP-1270LE9S:1521:XE";
-            user="C##happygrades";
-            Password="scranton";
-            Connection con = DriverManager.getConnection(url,user,Password);
+            OracleDataSource ods = new OracleDataSource();
+            ods.setURL("jdbc:oracle:thin:@LAPTOP-1270LE9S:1521:XE");
+            ods.setUser("c##HappyGrades");
+            ods.setPassword("scranton");
+            Connection con = ods.getConnection();
             con.setAutoCommit(false);
               String count = "select  count(distinct courses.courseno)\n" +
                            "from courses,sections,students_sections,students\n" +
@@ -87,6 +90,8 @@ public class home_for_stu extends javax.swing.JFrame{
         arr4 = new JLabel[lenth];
         arr5 = new JLabel[lenth];
         arr6 = new JLabel[lenth];
+        secno = new String[lenth];
+        
          for(int i = 0 ; i< lenth ; i++){
          arr1[i] = new JLabel();
          arr2[i] = new JLabel();
@@ -174,108 +179,7 @@ public class home_for_stu extends javax.swing.JFrame{
             scaleimage__logo("src\\photo\\botton\\min_rel.png",min_max);
             Setting_panel.setVisible(false);
    }
-   /*
-    public home_for_stu(int lenth) {
-        len = lenth;
-        arr1 = new JLabel[lenth];                   
-        arr2 = new JLabel[lenth];
-        arr3 = new JLabel[lenth];
-        arr4 = new JLabel[lenth];
-        arr5 = new JLabel[lenth];
-        arr6 = new JLabel[lenth];
-         for(int i = 0 ; i< lenth ; i++){
-         arr1[i] = new JLabel();
-         arr2[i] = new JLabel();
-         arr3[i] = new JLabel();
-         arr4[i] = new JLabel();
-         arr6[i] = new JLabel("",JLabel.CENTER);
-         arr5[i] = new JLabel("",JLabel.CENTER);
-         
-        }
-        
-        //Iwill add all the action manual 
-        // Please DON'T CHANGE ANY THING IN THIS CODE ( by : majdy )
-        // Addin a n lenth TIlite Action ,Exit and click and Enter 
-        for (int i = 0 ; i < lenth ; i++){
-          arr1[i].addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseFunclick(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                myActionMouseFunexit(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                myActionMouseFunenter(evt);
-            }
-        });
-          arr6[i].addMouseListener(new java.awt.event.MouseAdapter(){
-           public void mouseEntered(java.awt.event.MouseEvent evt) {
-                myActionMouseEnterchat(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                 myActionMouseExitchat(evt);
-            }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseClickChat(evt);
-            }
-        });
-           arr1[i].addMouseListener(new java.awt.event.MouseAdapter(){
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                myActionMouseClicktoOpenCourseINFO(evt);
-            }
-        });
-          
-        }
-        
-        
-        
-        initComponents();
-        fun (lenth);
-        
-        this.jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-        for5_courses.setVisible(false);
-        for4_courses.setVisible(false);
-        for6_courses.setVisible(false);
-        for7_courses.setVisible(false);
-        
-        
-        if(lenth==4){for4_courses.setVisible(true);
-        for5_courses.setVisible(false);
-       
-        for6_courses.setVisible(false);
-        for7_courses.setVisible(false);
-        }
-         if(lenth==5){for5_courses.setVisible(true);
-          
-        for4_courses.setVisible(false);
-        for6_courses.setVisible(false);
-        for7_courses.setVisible(false);
-         }
-          if(lenth==6){for6_courses.setVisible(true);
-          for5_courses.setVisible(false);
-        for4_courses.setVisible(false);
-        
-        for7_courses.setVisible(false);}
-           if(lenth==7){for7_courses.setVisible(true);
-           for5_courses.setVisible(false);
-        for4_courses.setVisible(false);
-        for6_courses.setVisible(false);
-        
-        
-        //After Getting the name from database
-        String name = "'Username Here'";
-        jLabel3.setText("<html>Your Personal Page <br/>Welcome <html>"+LogInInterface.name);
-       
-    }
-           
-           //constractor
-            scaleimage__logo("src\\photo\\user_.png",user_photo);
-            scaleimage__logo("src\\photo\\prop_rel.png",properties);
-            scaleimage__logo("src\\photo\\botton\\cross.png",exit);
-            scaleimage__logo("src\\photo\\botton\\min_rel.png",min_max);
-            Setting_panel.setVisible(false);
-            
-    }*/
+   
     public void scaleimage_butt1(){
         
         ImageIcon icon = new ImageIcon ("src\\photo\\white.png");
@@ -530,50 +434,178 @@ public class home_for_stu extends javax.swing.JFrame{
     private void myActionMouseFunclick(java.awt.event.MouseEvent evt){
     
        if(len==1){
-        if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
+           
+        if(evt.getSource()==arr1[0]){      
+         sectionId = Integer.parseInt(secno[0]); 
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
         }
-        if(len==2){
-         if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-         if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-        }
-        if(len==3){
-        if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-        if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-        if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-        }
-        if(len==4){
-       if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-       if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-       if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-       if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-
-        }
-        if(len==5){
-       if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-       if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-       if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-       if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-       if(evt.getSource()==arr1[4]){couse_name = arr1[4].getText();}
-        }
-        if(len==6){
-         if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-         if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-         if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-         if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-         if(evt.getSource()==arr1[4]){couse_name = arr1[4].getText();}
-         if(evt.getSource()==arr1[5]){couse_name = arr1[5].getText();}
-        }
-          if(len==7){
-         if(evt.getSource()==arr1[0]){couse_name = arr1[0].getText();}
-         if(evt.getSource()==arr1[1]){couse_name = arr1[1].getText();}
-         if(evt.getSource()==arr1[2]){couse_name = arr1[2].getText();}
-         if(evt.getSource()==arr1[3]){couse_name = arr1[3].getText();}
-         if(evt.getSource()==arr1[4]){couse_name = arr1[4].getText();}
-         if(evt.getSource()==arr1[5]){couse_name = arr1[5].getText();}
-         if(evt.getSource()==arr1[6]){couse_name = arr1[6].getText();}
         
         }
-          System.out.print(couse_name+"\n");
+        if(len==2){
+            
+       if(evt.getSource()==arr1[0]){
+         sectionId = Integer.parseInt(secno[0]);
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
+       }
+       if(evt.getSource()==arr1[1]){
+         sectionId = Integer.parseInt(secno[1]);
+         courseName = arr1[1].getText();
+         courseId = Integer.parseInt(arr2[1].getText());
+       }
+      
+        }
+        if(len==3){
+            
+        if(evt.getSource()==arr1[0]){
+         sectionId = Integer.parseInt(secno[0]);
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
+       }
+       if(evt.getSource()==arr1[1]){
+         sectionId = Integer.parseInt(secno[1]);
+         courseName = arr1[1].getText();
+         courseId = Integer.parseInt(arr2[1].getText());
+       }
+       if(evt.getSource()==arr1[2]){
+         sectionId = Integer.parseInt(secno[2]);
+         courseName = arr1[2].getText();
+         courseId = Integer.parseInt(arr2[2].getText());
+       }
+       if(evt.getSource()==arr1[3]){
+         sectionId = Integer.parseInt(secno[3]);
+         courseName = arr1[3].getText();
+         courseId = Integer.parseInt(arr2[3].getText());
+       }
+       
+       }
+        
+        if(len==4){
+            
+       if(evt.getSource()==arr1[0]){
+         sectionId = Integer.parseInt(secno[0]);
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
+       }
+       if(evt.getSource()==arr1[1]){
+         sectionId = Integer.parseInt(secno[1]);
+         courseName = arr1[1].getText();
+         courseId = Integer.parseInt(arr2[1].getText());
+       }
+       if(evt.getSource()==arr1[2]){
+         sectionId = Integer.parseInt(secno[2]);
+         courseName = arr1[2].getText();
+         courseId = Integer.parseInt(arr2[2].getText());
+       }
+       if(evt.getSource()==arr1[3]){
+         sectionId = Integer.parseInt(secno[3]);
+         courseName = arr1[3].getText();
+         courseId = Integer.parseInt(arr2[3].getText());
+       }
+       
+        }
+        if(len==5){
+            
+       if(evt.getSource()==arr1[0]){
+         sectionId = Integer.parseInt(secno[0]);
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
+       }
+       if(evt.getSource()==arr1[1]){
+         sectionId = Integer.parseInt(secno[1]);
+         courseName = arr1[1].getText();
+         courseId = Integer.parseInt(arr2[1].getText());
+       }
+       if(evt.getSource()==arr1[2]){
+         sectionId = Integer.parseInt(secno[2]);
+         courseName = arr1[2].getText();
+         courseId = Integer.parseInt(arr2[2].getText());
+       }
+       if(evt.getSource()==arr1[3]){
+         sectionId = Integer.parseInt(secno[3]);
+         courseName = arr1[3].getText();
+         courseId = Integer.parseInt(arr2[3].getText());
+       }
+       if(evt.getSource()==arr1[4]){
+         sectionId = Integer.parseInt(secno[4]);
+         courseName = arr1[4].getText();
+         courseId = Integer.parseInt(arr2[4].getText());
+       }
+       
+        }
+        if(len==6){
+            
+         if(evt.getSource()==arr1[0]){
+         sectionId = Integer.parseInt(secno[0]);
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
+       }
+       if(evt.getSource()==arr1[1]){
+         sectionId = Integer.parseInt(secno[1]);
+         courseName = arr1[1].getText();
+         courseId = Integer.parseInt(arr2[1].getText());
+       }
+       if(evt.getSource()==arr1[2]){
+         sectionId = Integer.parseInt(secno[2]);
+         courseName = arr1[2].getText();
+         courseId = Integer.parseInt(arr2[2].getText());
+       }
+       if(evt.getSource()==arr1[3]){
+         sectionId = Integer.parseInt(secno[3]);
+         courseName = arr1[3].getText();
+         courseId = Integer.parseInt(arr2[3].getText());
+       }
+       if(evt.getSource()==arr1[4]){
+         sectionId = Integer.parseInt(secno[4]);
+         courseName = arr1[4].getText();        
+         courseId = Integer.parseInt(arr2[4].getText());
+       }
+       if(evt.getSource()==arr1[5]){
+         sectionId = Integer.parseInt(secno[5]);
+         courseName = arr1[5].getText();
+         courseId = Integer.parseInt(arr2[5].getText());
+       }
+      
+        }
+          if(len==7){
+              
+            if(evt.getSource()==arr1[0]){
+         sectionId = Integer.parseInt(secno[0]);
+         courseName = arr1[0].getText();
+         courseId = Integer.parseInt(arr2[0].getText());
+       }
+       if(evt.getSource()==arr1[1]){
+         sectionId = Integer.parseInt(secno[1]);
+         courseName = arr1[1].getText();
+         courseId = Integer.parseInt(arr2[1].getText());
+       }
+       if(evt.getSource()==arr1[2]){
+         sectionId = Integer.parseInt(secno[2]);
+         courseName = arr1[2].getText();
+         courseId = Integer.parseInt(arr2[2].getText());
+       }
+       if(evt.getSource()==arr1[3]){
+         sectionId = Integer.parseInt(secno[3]);
+         courseName = arr1[3].getText();
+         courseId = Integer.parseInt(arr2[3].getText());
+       }
+       if(evt.getSource()==arr1[4]){
+         sectionId = Integer.parseInt(secno[4]);
+         courseName = arr1[4].getText();
+         courseId = Integer.parseInt(arr2[4].getText());
+       }
+       if(evt.getSource()==arr1[5]){
+         sectionId = Integer.parseInt(secno[5]);
+         courseName = arr1[5].getText();
+         courseId = Integer.parseInt(arr2[5].getText());
+       }
+       if(evt.getSource()==arr1[6]){
+         sectionId = Integer.parseInt(secno[6]);
+         courseName = arr1[6].getText();
+         courseId = Integer.parseInt(arr2[6].getText());
+       }
+        }
     
     }
     private void myActionMouseClickChat(java.awt.event.MouseEvent evt){
@@ -633,7 +665,6 @@ public class home_for_stu extends javax.swing.JFrame{
         }
         em.close();
           
-         // System.out.print(couse_name+"\n");
         
     } 
     private void myActionMouseFunexit(java.awt.event.MouseEvent evt){
@@ -934,7 +965,7 @@ public class home_for_stu extends javax.swing.JFrame{
         
     }
     private void myActionMouseClicktoOpenCourseINFO(java.awt.event.MouseEvent evt){
-        int indx;
+        
         for(int i = 0 ; i < len;i++){
         if(evt.getSource() == arr1[i]){
         //Detect Wich one i Clk in it
@@ -946,10 +977,7 @@ public class home_for_stu extends javax.swing.JFrame{
         }
     }
     
-    
-    //****************************************************************
-    
-    
+   
     
     private void change_passMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_change_passMouseEntered
       change_pass.setForeground(new Color(0,0,0));
@@ -982,6 +1010,7 @@ public class home_for_stu extends javax.swing.JFrame{
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         // TODO add your handling code here:
         this.dispose();
+        new Main_frame().setVisible(true);
     }//GEN-LAST:event_exitMouseClicked
 
     private void exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseEntered
@@ -1058,11 +1087,7 @@ public class home_for_stu extends javax.swing.JFrame{
     }//GEN-LAST:event_MassageMousePressed
 
     
-    
-    
-    
-    
-    
+       
     /**
      * @param args the command line arguments
      */
@@ -1145,7 +1170,7 @@ public class home_for_stu extends javax.swing.JFrame{
            Password="scranton";
            Connection con = DriverManager.getConnection(url,user,Password);
            con.setAutoCommit(false);
-           String query = "select distinct courses.coursename,courses.courseno,courses.image,teachers.teachername,teachers.tmode\n" +
+           String query = "select distinct courses.coursename,courses.courseno,courses.image,teachers.teachername,teachers.tmode,students_sections.sectionno\n" +
                    "from courses,sections,students_sections,students,teachers_sections,teachers \n" +
                    "where  students_sections.STUDENTID = "+id+" and students_sections.sectionno=sections.sectionno and sections.courseno=courses.courseno\n" +
                    "and sections.sectionno=teachers_sections.sectionno and teachers_sections.teacherid=teachers.teacherid";
@@ -1158,7 +1183,6 @@ public class home_for_stu extends javax.swing.JFrame{
            while(rs.next()) {
                
                if(rs == null)break;
-               System.out.print(rs.getString("Tmode"));
                if (rs.getString("Tmode").equals("TA"))
                {
                    cNum.add(rs.getInt("COURSENO"));
@@ -1198,7 +1222,11 @@ public class home_for_stu extends javax.swing.JFrame{
                    arr4[i].setIcon(new ImageIcon(rs.getString("image")));
                    // course name
                    arr5[i].setText(rs.getString("coursename"));
+                   // section number
+                   secno[i] = rs.getString("sectionno");
                    // end code Mayar
+                   
+                   
                    arr1[i].setForeground(new Color(177,67,77));
                    arr5[i].setForeground(new Color(177,67,77));
                    arr1[i].setVisible(true);
@@ -1209,9 +1237,8 @@ public class home_for_stu extends javax.swing.JFrame{
                    arr3[i].setFont(new Font ("Trebuchet MS" ,Font.PLAIN , 15));
                    arr2[i].setForeground(new Color (152,152,152));
                    arr3[i].setForeground(new Color (102,102,102));
-                   //arr4[i].setBackground(Color.red);
+
                    
-                   // arr5[i].setBorder(border);
                    arr5[i].setFont(new Font("Trebuchet MS" ,Font.PLAIN , 14));
                    arr5[i].setHorizontalTextPosition(JLabel.CENTER);
                    arr4[i].setOpaque(true);
@@ -1235,7 +1262,7 @@ public class home_for_stu extends javax.swing.JFrame{
                    
                    
                }
-               //ImageIcon icon = new ImageIcon ("src\\photo\\logo_1.png");
+
            }
                
                EntityManager em = Persistence.createEntityManagerFactory("Software_ProjectPU").createEntityManager();
@@ -1252,8 +1279,6 @@ public class home_for_stu extends javax.swing.JFrame{
                }
                
                
-               //arr4[0].setIcon(new ImageIcon("src/CoursesGIFs/ElectricalCircuits1.gif"));
-               //arr4[1].setIcon(new ImageIcon("src/courses/elc.gif"));
                
            }
            catch(Exception ex){

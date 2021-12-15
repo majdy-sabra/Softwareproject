@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables;
+package database;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author c
+ * @author Jenan
  */
 @Entity
 @Table(name = "TEACHERS")
@@ -150,7 +150,7 @@ public class Teachers implements Serializable {
 
     @Override
     public String toString() {
-        return "Tables.Teachers[ teacherid=" + teacherid + " ]";
+        return "database.Teachers[ teacherid=" + teacherid + " ]";
     }
     
 }

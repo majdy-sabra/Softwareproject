@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables;
+package database;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author c
+ * @author Jenan
  */
 @Entity
 @Table(name = "SECTIONS")
@@ -45,6 +45,8 @@ public class Sections implements Serializable {
     @OneToMany(mappedBy = "sectionno")
     private Collection<TeachersSections> teachersSectionsCollection;
     @OneToMany(mappedBy = "sectionno")
+    private Collection<Assignments> assignmentsCollection;
+    @OneToMany(mappedBy = "sectionno")
     private Collection<StudentsSections> studentsSectionsCollection;
 
     public Sections() {
@@ -52,6 +54,13 @@ public class Sections implements Serializable {
 
     public Sections(BigDecimal sectionno) {
         this.sectionno = sectionno;
+    }
+
+    public Sections(BigDecimal bigDecimal, String string) {
+        this.sectionno = bigDecimal;
+        this.datee = string;
+        
+        
     }
 
     public BigDecimal getSectionno() {
@@ -86,6 +95,14 @@ public class Sections implements Serializable {
         this.teachersSectionsCollection = teachersSectionsCollection;
     }
 
+    public Collection<Assignments> getAssignmentsCollection() {
+        return assignmentsCollection;
+    }
+
+    public void setAssignmentsCollection(Collection<Assignments> assignmentsCollection) {
+        this.assignmentsCollection = assignmentsCollection;
+    }
+
     public Collection<StudentsSections> getStudentsSectionsCollection() {
         return studentsSectionsCollection;
     }
@@ -116,7 +133,7 @@ public class Sections implements Serializable {
 
     @Override
     public String toString() {
-        return "Tables.Sections[ sectionno=" + sectionno + " ]";
+        return "database.Sections[ sectionno=" + sectionno + " ]";
     }
     
 }

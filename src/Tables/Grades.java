@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables;
+package database;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author c
+ * @author Jenan
  */
 @Entity
 @Table(name = "GRADES")
@@ -31,7 +31,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "Grades.findBySecondexam", query = "SELECT g FROM Grades g WHERE g.secondexam = :secondexam"),
     @NamedQuery(name = "Grades.findByFinalexam", query = "SELECT g FROM Grades g WHERE g.finalexam = :finalexam"),
     @NamedQuery(name = "Grades.findByAssignment1", query = "SELECT g FROM Grades g WHERE g.assignment1 = :assignment1"),
-    @NamedQuery(name = "Grades.findByAssignment2", query = "SELECT g FROM Grades g WHERE g.assignment2 = :assignment2")})
+    @NamedQuery(name = "Grades.findByAssignment2", query = "SELECT g FROM Grades g WHERE g.assignment2 = :assignment2"),
+    @NamedQuery(name = "Grades.findByAssignment3", query = "SELECT g FROM Grades g WHERE g.assignment3 = :assignment3"),
+    @NamedQuery(name = "Grades.findByAssignment4", query = "SELECT g FROM Grades g WHERE g.assignment4 = :assignment4")})
 public class Grades implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,6 +52,10 @@ public class Grades implements Serializable {
     private BigInteger assignment1;
     @Column(name = "ASSIGNMENT2")
     private BigInteger assignment2;
+    @Column(name = "ASSIGNMENT3")
+    private BigInteger assignment3;
+    @Column(name = "ASSIGNMENT4")
+    private BigInteger assignment4;
     @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private StudentsSections studentsSections;
@@ -109,6 +115,22 @@ public class Grades implements Serializable {
         this.assignment2 = assignment2;
     }
 
+    public BigInteger getAssignment3() {
+        return assignment3;
+    }
+
+    public void setAssignment3(BigInteger assignment3) {
+        this.assignment3 = assignment3;
+    }
+
+    public BigInteger getAssignment4() {
+        return assignment4;
+    }
+
+    public void setAssignment4(BigInteger assignment4) {
+        this.assignment4 = assignment4;
+    }
+
     public StudentsSections getStudentsSections() {
         return studentsSections;
     }
@@ -139,7 +161,7 @@ public class Grades implements Serializable {
 
     @Override
     public String toString() {
-        return "Tables.Grades[ id=" + id + " ]";
+        return "database.Grades[ id=" + id + " ]";
     }
     
 }

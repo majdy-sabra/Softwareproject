@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables;
+package database;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author c
+ * @author Jenan
  */
 @Entity
 @Table(name = "COURSES")
@@ -33,6 +34,17 @@ import javax.persistence.Table;
     @NamedQuery(name = "Courses.findByOutlineplan", query = "SELECT c FROM Courses c WHERE c.outlineplan = :outlineplan"),
     @NamedQuery(name = "Courses.findByImage", query = "SELECT c FROM Courses c WHERE c.image = :image")})
 public class Courses implements Serializable {
+
+    @Column(name = "FIRSTWEIGHT")
+    private BigInteger firstweight;
+    @Column(name = "SECONDWEIGHT")
+    private BigInteger secondweight;
+    @Column(name = "FINALWEIGHT")
+    private BigInteger finalweight;
+    @Column(name = "ASSIGNMENT1WEIGHT")
+    private BigInteger assignment1weight;
+    @Column(name = "ASSIGNMENT2WEIGHT")
+    private BigInteger assignment2weight;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -61,15 +73,7 @@ public class Courses implements Serializable {
     public Courses(BigDecimal courseno) {
         this.courseno = courseno;
     }
-    public Courses(BigDecimal courseno, String coursename, String outlineplan, String image, String message, Collection<Sections> sectionsCollection, Department depno) {
-        this.courseno = courseno;
-        this.coursename = coursename;
-        this.outlineplan = outlineplan;
-        this.image = image;
-        this.message = message;
-        this.sectionsCollection = sectionsCollection;
-        this.depno = depno;
-    }
+
     public BigDecimal getCourseno() {
         return courseno;
     }
@@ -145,10 +149,58 @@ public class Courses implements Serializable {
         }
         return true;
     }
-
+    public Courses(BigDecimal courseno, String coursename, String outlineplan, String image, String message, Collection<Sections> sectionsCollection, Department depno) {
+        this.courseno = courseno;
+        this.coursename = coursename;
+        this.outlineplan = outlineplan;
+        this.image = image;
+        this.message = message;
+        this.sectionsCollection = sectionsCollection;
+        this.depno = depno;
+    }
     @Override
     public String toString() {
-        return "Tables.Courses[ courseno=" + courseno + " ]";
+        return "database.Courses[ courseno=" + courseno + " ]";
+    }
+
+    public BigInteger getFirstweight() {
+        return firstweight;
+    }
+
+    public void setFirstweight(BigInteger firstweight) {
+        this.firstweight = firstweight;
+    }
+
+    public BigInteger getSecondweight() {
+        return secondweight;
+    }
+
+    public void setSecondweight(BigInteger secondweight) {
+        this.secondweight = secondweight;
+    }
+
+    public BigInteger getFinalweight() {
+        return finalweight;
+    }
+
+    public void setFinalweight(BigInteger finalweight) {
+        this.finalweight = finalweight;
+    }
+
+    public BigInteger getAssignment1weight() {
+        return assignment1weight;
+    }
+
+    public void setAssignment1weight(BigInteger assignment1weight) {
+        this.assignment1weight = assignment1weight;
+    }
+
+    public BigInteger getAssignment2weight() {
+        return assignment2weight;
+    }
+
+    public void setAssignment2weight(BigInteger assignment2weight) {
+        this.assignment2weight = assignment2weight;
     }
     
 }
